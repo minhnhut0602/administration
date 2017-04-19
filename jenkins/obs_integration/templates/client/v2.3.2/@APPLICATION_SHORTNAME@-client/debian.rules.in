@@ -10,10 +10,10 @@
 export DH_VERBOSE=1
 
 export QT_SELECT := qt5
-export PATH := ${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/qt5/bin:$(PATH)
-export LD_LIBRARY_PATH := ${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH):$(LD_LIBRARY_PATH)
+export PATH := @PACKAGE_ROOT@/lib/$(DEB_HOST_MULTIARCH)/qt5/bin:$(PATH)
+export LD_LIBRARY_PATH := @PACKAGE_ROOT@/lib/$(DEB_HOST_MULTIARCH):$(LD_LIBRARY_PATH)
 
-export DROOT=$(CURDIR)/debian/owncloud-client
+export DROOT=$(CURDIR)/debian/@APPLICATION_SHORTNAME@-client
 export SRCDIR=/usr/src/packages/SOURCES
 export DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
@@ -32,18 +32,18 @@ override_dh_auto_configure:
 	if [ -d binary ]; then ls -la; echo; echo "A top level directory named 'binary' exists. This kills dpkg-genchangelog."; echo; echo "Please remove that directory."; echo; echo; exit 1; fi
 
 	git_defs=(); \
-	if [ -n "%nil" -a "%nil" != "%nil" ]; then \
-	  git_defs=('-DMIRALL_VERSION_SUFFIX=%nil' '-DMIRALL_VERSION_BUILD=1917'); \
+	if [ -n "@PRERELEASE@" -a "@PRERELEASE@" != "%nil" ]; then \
+	  git_defs=('-DMIRALL_VERSION_SUFFIX=@PRERELEASE@' '-DMIRALL_VERSION_BUILD=@BUILD_NUMBER@'); \
 	fi; \
-	echo "include_directories(${_oc_prefix}/include/$(DEB_HOST_MULTIARCH))" >> src/libsync/CMakeLists.txt
-	echo "include_directories(${_oc_prefix}/include/$(DEB_HOST_MULTIARCH)/qt5)" >> src/libsync/CMakeLists.txt
-	echo "include_directories(${_oc_prefix}/include/$(DEB_HOST_MULTIARCH)/qt5/QtCore)" >> src/libsync/CMakeLists.txt
+	echo "include_directories(@PACKAGE_ROOT@/include/$(DEB_HOST_MULTIARCH))" >> src/libsync/CMakeLists.txt
+	echo "include_directories(@PACKAGE_ROOT@/include/$(DEB_HOST_MULTIARCH)/qt5)" >> src/libsync/CMakeLists.txt
+	echo "include_directories(@PACKAGE_ROOT@/include/$(DEB_HOST_MULTIARCH)/qt5/QtCore)" >> src/libsync/CMakeLists.txt
 	cat src/libsync/CMakeLists.txt
-		
+
 	dh_auto_configure -- \
 		"$${git_defs[@]}" \
-		-DQT_QMAKE_EXECUTABLE=${_oc_prefix}/bin/qmake \
-		-DCMAKE_INSTALL_PREFIX=${_oc_prefix} \
+		-DQT_QMAKE_EXECUTABLE=@PACKAGE_ROOT@/bin/qmake \
+		-DCMAKE_INSTALL_PREFIX=@PACKAGE_ROOT@ \
 		-DCMAKE_INSTALL_DOCDIR=/usr/share/doc \
 		-DCMAKE_INSTALL_DATAROOTDIR:PATH=/usr/share \
 		-DDATA_INSTALL_DIR:PATH=/usr/share \
@@ -51,27 +51,27 @@ override_dh_auto_configure:
 		-DWITH_DOC=FALSE \
 		-DCMAKE_SKIP_RPATH=FALSE \
 		-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE \
-		-DOEM_THEME_DIR=$(CURDIR)/owncloud/syncclient \
-		-DCMAKE_FIND_ROOT_PATH=${_oc_prefix} \
+		-DOEM_THEME_DIR=$(CURDIR)/@THEMENAME@/@OEM_SUB_DIR@ \
+		-DCMAKE_FIND_ROOT_PATH=@PACKAGE_ROOT@ \
 		-DBUILD_SHELL_INTEGRATION=OFF
-	
+
 override_dh_auto_install:
 	# survive at Ubuntu_16.04
-	mkdir -p $(CURDIR)/usr/share/owncloud/i18n
-	echo 3cb86418caef9c95cd211cbf60a1bddd88000000020101 | xxd -r -p > $(CURDIR)/usr/share/owncloud/i18n/client_en.qm
+	mkdir -p $(CURDIR)/usr/share/@APPLICATION_EXECUTABLE@/i18n
+	echo 3cb86418caef9c95cd211cbf60a1bddd88000000020101 | xxd -r -p > $(CURDIR)/usr/share/@APPLICATION_EXECUTABLE@/i18n/client_en.qm
 	dh_auto_install -Xdebian
 	# https://github.com/owncloud/client/issues/4107
-	install -m 0755 -D $(SRCDIR)/100-sync-inotify.conf $(DROOT)/etc/sysctl.d/100-sync-inotify.conf
-	if [ -f $(SRCDIR)/l10n.zip ]; then cd $(CURDIR)/usr/share/owncloud ; unzip -o $(SRCDIR)/l10n.zip; fi || true
+	install -m 0755 -D $(SRCDIR)/100-sync-inotify.conf $(DROOT)/etc/sysctl.d/100-@APPLICATION_EXECUTABLE@-inotify.conf
+	if [ -f $(SRCDIR)/l10n.zip ]; then cd $(CURDIR)/usr/share/@APPLICATION_EXECUTABLE@ ; unzip -o $(SRCDIR)/l10n.zip; fi || true
 
 	# install wrapper scripts to /usr/bin
 	install -m 0644 -d $(CURDIR)/usr/bin/
-	install -m 0755 $(SRCDIR)/owncloud.sh $(CURDIR)/usr/bin/owncloud
-	install -m 0755 $(SRCDIR)/owncloudcmd.sh $(CURDIR)/usr/bin/owncloudcmd
+	install -m 0755 $(SRCDIR)/@APPLICATION_EXECUTABLE@.sh $(CURDIR)/usr/bin/@APPLICATION_EXECUTABLE@
+	install -m 0755 $(SRCDIR)/@APPLICATION_EXECUTABLE@.sh $(CURDIR)/usr/bin/@APPLICATION_EXECUTABLE@cmd
 
 	# https://github.com/owncloud/client/issues/2153
 	find $(CURDIR) -name \*.1 | grep man/man1 | tee | xargs rm -f
 
 
 override_dh_strip:
-	dh_strip --dbg-package=owncloud-client-dbg
+	dh_strip --dbg-package=@APPLICATION_SHORTNAME@-client-dbg

@@ -1,9 +1,6 @@
 #!/bin/sh
 
 # Wrapper to start the correct owncloud binary with proper preinitializations.
-qtdir=ownCloud/Qt-5.6.2
-export LD_LIBRARY_PATH=/opt/$qtdir/lib64
+export LD_LIBRARY_PATH=@PACKAGE_ROOT@/lib64:@PACKAGE_ROOT@/lib:$LD_LIBRARY_PATH
 
-exec /opt/$qtdir/bin/owncloudcmd "$@"
-
-# end
+exec @PACKAGE_ROOT@/bin/@APPLICATION_SHORTNAME@cmd "$@"

@@ -8,8 +8,8 @@
 ## prerelease, base_version, tar_version are the interface into buildpackage.pl
 ## used in rotor.o.c job owncloud-client-linux
 ## define prerelease as %nil, if this is not a prerelease.
-%define prerelease %nil
-%define base_version 2.3.1
+%define prerelease @PRERELEASE@
+%define base_version @BASEVERSION@
 %define tar_version %{base_version}%{prerelease}
 
 
