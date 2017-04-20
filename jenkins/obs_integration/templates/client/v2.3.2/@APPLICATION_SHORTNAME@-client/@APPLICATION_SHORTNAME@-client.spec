@@ -50,14 +50,14 @@ Name:           @APPLICATION_SHORTNAME@-client
 # Some distro's (centos_6) don't allow ~ characters. There we follow the Fedora guidelines,
 # which suggests massaging the buildrelease number.
 # Otoh: for openSUSE, this technique is discouraged by the package naming guidelines.
-Version:       	%{base_version}
-%if "%{prerelease}" == ""
+Version:       	@BASEVERSION@
+%if "@PRERELEASE@" == ""
 Release:        0
 %else
-Release:       	0.<CI_CNT>.<B_CNT>.%{prerelease}
+Release:       	0.<CI_CNT>.<B_CNT>.@PRERELEASE@
 %endif
 %else
-Version:       	%{base_version}~%{prerelease}
+Version:       	@BASEVERSION@~@PRERELEASE@
 Release:        0
 %endif
 
@@ -65,7 +65,7 @@ License:        GPL-2.0+
 Summary:        @SUMMARY@
 Url:            @PROJECTURL@
 Group:          Productivity/Networking/Other
-Source0:        @TARBALL@.tar.bz2
+Source0:        @TARNAME@
 Source1:        @APPLICATION_EXECUTABLE@.sh
 Source2:        @APPLICATION_EXECUTABLE@cmd.sh
 Source3:        100-sync-inotify.conf

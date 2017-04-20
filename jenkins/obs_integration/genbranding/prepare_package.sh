@@ -57,4 +57,5 @@ for tmplpkg in $templatedir/*; do
 		echo " ... $file"
 		templatize_body < $tmplfile > $destdir/$pkg/$file
 	done
+	cp $(dirname $templvars_file)/$TARNAME $destdir/$pkg/
 done
