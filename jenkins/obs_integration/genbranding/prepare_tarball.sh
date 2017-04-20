@@ -3,6 +3,7 @@
 # refactored from genbranding.pl
 # (c) 2017 jw@owncloud.com
 #
+# 2017-04-20 jw, added @TARTOPDIR@
 
 # Usage: clienttar themetar [outvars.sh]
 # shell variables describing the branding are saved into outvars.sh
