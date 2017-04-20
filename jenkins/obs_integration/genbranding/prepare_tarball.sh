@@ -74,6 +74,7 @@ if [ -n "$outfile" ]; then
   echo "BASEVERSION=\"$baseversion\"" >> $outfile
   echo "PRERELEASE=\"$prerelease\"" >> $outfile
   echo "THEME=\"$theme\"" >> $outfile
+  echo "OEM_SUB_DIR=\"$themed\"" >> $outfile
   # json to bash syntax with uppercase variables.
   sed -e 's@^\s*@@' -e 's@^\s*,\s*@@' -e 's@\(\S*\)\s*=>\s@\U\1=@' -e 's@",\s*$@"@' -e 's@",\s*#.*$@"@' $tmpdir/$newname/$theme/$themed/package.cfg >> $outfile
   # cmake to bash syntax
