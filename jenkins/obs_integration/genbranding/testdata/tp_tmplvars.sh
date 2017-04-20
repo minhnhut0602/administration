@@ -1,3 +1,4 @@
+TARNAME="testpilotcloudclient-2.3.2git.tar.bz2"
 TARTOPDIR="testpilotcloudclient-2.3.2git"
 VERSION="2.3.2git"
 BASEVERSION="2.3.2"
