@@ -48,7 +48,7 @@ Wed Jul 20 04:38:42 UTC 2016 - jengelh@inai.de
 -------------------------------------------------------------------
 Thu Jun 30 13:21:21 UTC 2016 - jnweiger@gmail.com
 
-- Do not own /etc/ 
+- Do not own /etc/
   https://github.com/owncloud/administration/pull/86
 
 -------------------------------------------------------------------
@@ -59,7 +59,7 @@ Mon Jun 27 13:03:57 UTC 2016 - jw@owncloud.com
 -------------------------------------------------------------------
 Fri Jun 24 11:01:32 UTC 2016 - freitag@owncloud.com
 
-- Register l10n.zip as source file in spec to avoid stray cat file 
+- Register l10n.zip as source file in spec to avoid stray cat file
 
 -------------------------------------------------------------------
 Mon Jun 20 16:25:35 UTC 2016 - jenkins@owncloud.org
@@ -133,7 +133,7 @@ Mon May 2 14:59:29 UTC 2016 - jenkins@owncloud.org
 -------------------------------------------------------------------
 Tue Apr 26 09:01:29 UTC 2016 - freitag@owncloud.com
 
-- add a patch to fix qt4 based builds 
+- add a patch to fix qt4 based builds
 
   That can be removed once beta2 has it in the code.
 
@@ -203,7 +203,7 @@ Thu Nov 26 12:57:27 UTC 2015 - jenkins@owncloud.org
 -------------------------------------------------------------------
 Tue Nov 17 16:43:51 UTC 2015 - freitag@owncloud.com
 
-- add qt4 fixes patch 
+- add qt4 fixes patch
 
 -------------------------------------------------------------------
 Tue Nov 17 14:47:45 UTC 2015 - jenkins@owncloud.org

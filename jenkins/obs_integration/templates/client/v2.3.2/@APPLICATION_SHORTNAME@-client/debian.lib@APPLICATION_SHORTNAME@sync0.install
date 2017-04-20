@@ -1,0 +1,3 @@
+/@SYSCONFDIR@/
+@PACKAGE_ROOT@/lib/*/lib@APPLICATION_EXECUTABLE@sync.so.*
+@PACKAGE_ROOT@/lib/*/*/libocsync.so.*

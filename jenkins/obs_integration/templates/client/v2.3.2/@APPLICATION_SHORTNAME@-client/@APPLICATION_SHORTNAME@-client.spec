@@ -230,7 +230,7 @@ Obsoletes:      opt-lib@APPLICATION_SHORTNAME@sync-devel
 Development files for the @DISPLAYNAME@ synchronization library.
 
 %prep
-%setup -q -n @TARBALL@
+%setup -q -n @TARTOPDIR@
 
 %_oc_client_apply_common_patches
 
@@ -278,7 +278,7 @@ cmake .. -DWITH_DOC=TRUE \
   -DLIB_SUFFIX=64 \
 %endif
 %if ! %{is_owncloud_client}
-  -DOEM_THEME_DIR=$PWD/../@THEMENAME@/@OEM_SUB_DIR@ \
+  -DOEM_THEME_DIR=$PWD/../@THEME@/@OEM_SUB_DIR@ \
 %endif
   -DQTKEYCHAIN_INCLUDE_DIR=@PACKAGE_ROOT@/include/qt5keychain \
   -DQTKEYCHAIN_LIBRARY=@PACKAGE_ROOT@/%{_lib}/libqt5keychain.so \
@@ -340,7 +340,7 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/*.1
 # test -f %{extdir}/ownCloud.pyc && mv %{extdir}/ownCloud.pyc %{extdir}/owncloud.pyc || true
 
 install -d ${RPM_BUILD_ROOT}@PACKAGE_ROOT@/bin
-# mv ${RPM_BUILD_ROOT}/%{_bindir}/owncloud* ${RPM_BUILD_ROOT}/@PACKAGE_ROOT@/bin/
+# mv ${RPM_BUILD_ROOT}/%{_bindir}/@APPLICATION_EXECUTABLE@* ${RPM_BUILD_ROOT}/@PACKAGE_ROOT@/bin/
 
 install -d ${RPM_BUILD_ROOT}%{_bindir}
 install %{SOURCE1} ${RPM_BUILD_ROOT}%{_bindir}/@APPLICATION_EXECUTABLE@

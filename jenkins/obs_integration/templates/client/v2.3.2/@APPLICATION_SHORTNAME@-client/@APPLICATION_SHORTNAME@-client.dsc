@@ -11,13 +11,13 @@ Standards-Version: 3.9.6
 # Reverted according to https://github.com/owncloud/client/issues/5470#issuecomment-275680311
 Build-Depends: debhelper (>= 9), cmake, sed, doxygen, unzip | bash,
 	libsqlite3-dev, python-sphinx | python3-sphinx, libssl-dev,
-	@_oc_pkg_prefix@-qt5-qmake,
-	@_oc_pkg_prefix@-qtbase5-dev,
-	@_oc_pkg_prefix@-qt5keychain-dev (>= 0.7.0),
-    @_oc_pkg_prefix@-libqt5webkit5-dev (>= 2.2.0)
+	@PACKAGE_NAME_PREFIX@-qt5-qmake,
+	@PACKAGE_NAME_PREFIX@-qtbase5-dev,
+	@PACKAGE_NAME_PREFIX@-qt5keychain-dev (>= 0.7.0),
+    @PACKAGE_NAME_PREFIX@-libqt5webkit5-dev (>= 2.2.0)
 
 Package-List:
- @_oc_pkg_prefix@-libowncloudsync0 deb libs optional
+ @PACKAGE_NAME_PREFIX@-lib@APPLICATION_EXECUTABLE@sync0 deb libs optional
  @APPLICATION_SHORTNAME@-client deb net optional
  @APPLICATION_SHORTNAME@-client-doc deb doc optional
  @APPLICATION_SHORTNAME@-client-l10n deb localization optional

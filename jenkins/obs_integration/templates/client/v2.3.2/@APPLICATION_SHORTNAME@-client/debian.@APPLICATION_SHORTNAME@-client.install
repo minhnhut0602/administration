@@ -1,5 +1,5 @@
 /usr/bin/@APPLICATION_EXECUTABLE@*
 
-${_oc_prefix}/bin/@APPLICATION_EXECUTABLE@*
+@PACKAGE_ROOT@/bin/@APPLICATION_EXECUTABLE@*
 usr/share/applications/@APPLICATION_EXECUTABLE@.desktop
 usr/share/icons/hicolor

@@ -1,3 +1,0 @@
-etc/@SYSCONFDIR@/
-${_oc_prefix}/lib/*/lib@APPLICATION_EXECUTABLE@sync.so.*
-${_oc_prefix}/lib/*/*/libocsync.so.*

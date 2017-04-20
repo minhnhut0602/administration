@@ -1,0 +1,46 @@
+Source: @APPLICATION_SHORTNAME@-client-overlays
+Section: devel
+Priority: optional
+Maintainer: Jürgen Weigert <jw@owncloud.com>
+Standards-Version: 3.9.6
+Build-Depends: debhelper (>= 9), cmake
+
+Package: @APPLICATION_SHORTNAME@-client-overlays-icons
+Architecture: all
+Section: devel
+Depends: @APPLICATION_SHORTNAME@-client (= ${binary:Version}), @APPLICATION_SHORTNAME@-client-overlays-icons, ${misc:Depends}, python-nautilus, nautilus
+Description: Dolphin plugin for ownCloud
+ This package contains a dolphin plugin to display overlay icons.
+ .
+ This helps users to understand the sync state of files in the
+ synchronized directory.
+
+Package: @APPLICATION_SHORTNAME@-client-nautilus
+Architecture: all
+Section: devel
+Depends: @APPLICATION_SHORTNAME@-client (= ${binary:Version}), @APPLICATION_SHORTNAME@-client-overlays-icons, ${misc:Depends}, python-nautilus, nautilus
+Description: nautilus plugin for ownCloud
+ This package contains a nautilus plugin to display overlay icons.
+ .
+ This helps users to understand the sync state of files in the
+ synchronized directory.
+
+Package: @APPLICATION_SHORTNAME@-client-nemo
+Architecture: all
+Section: devel
+Depends: @APPLICATION_SHORTNAME@-client (= ${binary:Version}), @APPLICATION_SHORTNAME@-client-overlays-icons, ${misc:Depends}, python-nemo, nemo
+Description: Nemo plugin for ownCloud
+ This package contains a nemo plugin to display overlay icons.
+ .
+ This helps users to understand the sync state of files in the
+ synchronized directory.
+
+Package: @APPLICATION_SHORTNAME@-client-caja
+Architecture: all
+Section: devel
+Depends: @APPLICATION_SHORTNAME@-client (= ${binary:Version}), @APPLICATION_SHORTNAME@-client-overlays-icons, ${misc:Depends}, python-caja, caja
+Description: Caja plugin for ownCloud
+ This package contains a caja plugin to display overlay icons.
+ .
+ This helps users to understand the sync state of files in the
+ synchronized directory.
