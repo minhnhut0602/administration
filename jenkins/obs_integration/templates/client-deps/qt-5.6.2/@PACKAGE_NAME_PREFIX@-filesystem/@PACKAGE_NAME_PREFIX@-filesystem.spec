@@ -42,18 +42,26 @@ mkdir %{buildroot}%{_oc_libdir}
 mkdir %{buildroot}%{_oc_libdir}/pkgconfig
 
 
-%files
+# spit out all the subdirs one after another.
+dirparts () {
+	prefix=$1
+	path=$2
+	while [ "$path" != '/' -a "$path" != '.' ]; do
+		echo $prefix$path
+		path=$(dirname $path)
+	done | tac
+}
+
+dirparts >  files.list '%dir ' /opt/@VENDOR@/@APPLICATION_SHORTNAME@
+dirparts >> files.list '%dir ' %{_oc_prefix}
+
+
+%files -f files.list
 %defattr(-,root,root,-)
 %config %{_sysconfdir}/rpm/macros.%{_oc_pkg_prefix}
 # %config %{_sysconfdir}/rpmlint/oc-rpmlint.config
 %{_libexecdir}/rpm/%{_oc_pkg_prefix}-*
 
-# TODO: do not hardcode parts of the path here ...
-%dir /opt
-%dir /opt/@VENDOR@
-%dir /opt/@VENDOR@/@APPLICATION_SHORTNAME@
-
-%dir %{_oc_prefix}
 %dir %{_oc_bindir}
 %dir %{_oc_includedir}
 %dir %{_oc_libdir}
