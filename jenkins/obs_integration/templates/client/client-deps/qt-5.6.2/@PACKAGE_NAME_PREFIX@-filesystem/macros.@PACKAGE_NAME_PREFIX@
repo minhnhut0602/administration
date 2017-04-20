@@ -1,0 +1,15 @@
+%_oc_findprovides    %{_libexecdir}/rpm/@PACKAGE_NAME_PREFIX@-find-provides.sh
+%_oc_findrequires    %{_libexecdir}/rpm/@PACKAGE_NAME_PREFIX@-find-requires.sh
+
+%_oc_prefix @OC_QT_ROOT@
+%_oc_bindir %{_oc_prefix}/bin
+%_oc_libdir %{_oc_prefix}/%{_lib}
+%_oc_includedir %{_oc_prefix}/include
+%_oc_datadir %{_oc_prefix}/share
+
+%_oc_package_header \
+  %global _use_internal_dependency_generator 0 \
+  %global __find_requires %{_oc_findrequires} \
+  %global __find_provides %{_oc_findprovides} \
+
+
