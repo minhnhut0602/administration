@@ -1,0 +1,57 @@
+%global _oc_qt5_pkg_prefix %{oc_pkg_prefix}-lib
+
+
+# TODO: Do not hardcode version here:
+
+%_oc_libqt5_prefix           %{_oc_prefix}
+%_oc_libqt5_libdir           %{_oc_libqt5_prefix}/%{_lib}
+%_oc_libqt5_archdatadir      %{_oc_libqt5_libdir}/qt5
+%_oc_libqt5_bindir           %{_libqt5_archdatadir}/bin
+%_oc_libqt5_datadir          %{_oc_libqt5_prefix}/share/qt5
+%_oc_libqt5_docdir           %{_docdir}/qt5
+%_oc_libqt5_examplesdir      %{_oc_libqt5_archdatadir}/examples
+%_oc_libqt5_includedir       %{_oc_libqt5_prefix}/include/qt5
+%_oc_libqt5_importdir        %{_oc_libqt5_archdatadir}/imports
+%_oc_libqt5_libexecdir       %{_oc_libqt5_archdatadir}/libexec
+%_oc_libqt5_plugindir        %{_oc_libqt5_archdatadir}/plugins
+%_oc_libqt5_sysconfdir       %{_sysconfdir}/xdg
+%_oc_libqt5_translationdir   %{_oc_libqt5_datadir}/translations
+
+%_oc_libqt5_qmake %{_oc_libqt5_bindir}/qmake
+
+%oc_qmake5 \
+  %_oc_libqt5_qmake \\\
+  QMAKE_CXXFLAGS="$CXXFLAGS %{optflags} -DOPENSSL_LOAD_CONF" \\\
+  QMAKE_CFLAGS="$CFLAGS %{optflags} -DOPENSSL_LOAD_CONF" \\\
+  QMAKE_LFLAGS="$LDFLAGS -Wl,--as-needed -Wl,--no-undefined"
+
+%oc_make_jobs \
+  %{__make} %{?_smp_mflags} VERBOSE=1
+
+%oc_qmake5_install \
+  make INSTALL_ROOT=%{buildroot} install ; \
+  if [ "`ls %{buildroot}%{_oc_libqt5_libdir}/*prl 2>/dev/null | wc -l`" != "0" ]; then \
+  sed -i -e "/^QMAKE_PRL_BUILD_DIR/d" %{buildroot}%{_oc_libqt5_libdir}/*prl \
+  fi \
+
+  
+# override original qt5 macros
+%_use_oc_qt5_as_default \
+    %global _libqt5_prefix %{_oc_libqt5_prefix} \
+    %global _libqt5_libdir %{_oc_libqt5_libdir} \
+    %global _libqt5_archdatadir %{_oc_libqt5_archdatadir} \
+    %global _libqt5_bindir %{_oc_libqt5_bindir} \
+    %global _libqt5_datadir %{_oc_libqt5_datadir} \
+    %global _libqt5_docdir %{_oc_libqt5_docdir} \
+    %global _libqt5_examplesdir %{_oc_libqt5_examplesdir} \
+    %global _libqt5_includedir %{_oc_libqt5_includedir} \
+    %global _libqt5_importdir %{_oc_libqt5_importdir} \
+    %global _libqt5_libexecdir %{_oc_libqt5_libexecdir} \
+    %global _libqt5_plugindir %{_oc_libqt5_plugindir} \
+    %global _libqt5_sysconfdir %{_oc_libqt5_sysconfdir} \
+    %global _libqt5_translationdir %{_oc_libqt5_translationdir} \
+    %global qmake5 %{oc_qmake5} \
+    %global qmake_qt5 %{oc_qmake5} \
+    %global make_jobs %{oc_make_jobs} \
+    %global qmake5_install %{oc_qmake5_install} 
+

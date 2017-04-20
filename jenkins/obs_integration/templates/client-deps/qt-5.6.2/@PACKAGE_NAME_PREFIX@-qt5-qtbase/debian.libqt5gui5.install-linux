@@ -1,0 +1,11 @@
+${_oc_prefix}/lib/*/libQt5EglDeviceIntegration.so.*
+${_oc_prefix}/lib/*/qt5/plugins/egldeviceintegrations/*
+${_oc_prefix}/lib/*/qt5/plugins/generic/libqevdevkeyboardplugin.so
+${_oc_prefix}/lib/*/qt5/plugins/generic/libqevdevmouseplugin.so
+${_oc_prefix}/lib/*/qt5/plugins/generic/libqevdevtabletplugin.so
+${_oc_prefix}/lib/*/qt5/plugins/generic/libqevdevtouchplugin.so
+# not built. Probably as we don't have libinput-dev on Ubuntu 14.04.
+# usr/lib/*/qt5/plugins/generic/libqlibinputplugin.so
+${_oc_prefix}/lib/*/qt5/plugins/platforms/libqeglfs.so
+${_oc_prefix}/lib/*/qt5/plugins/platforms/libqlinuxfb.so
+${_oc_prefix}/lib/*/qt5/plugins/platforms/libqminimalegl.so

@@ -1,0 +1,2 @@
+${_oc_prefix}/lib/*/libQt5PrintSupport.so.*
+${_oc_prefix}/lib/*/qt5/plugins/printsupport/libcupsprintersupport.so

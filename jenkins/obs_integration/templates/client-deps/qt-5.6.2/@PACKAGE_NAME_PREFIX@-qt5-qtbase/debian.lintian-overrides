@@ -1,0 +1,22 @@
+oc-libqt5sql5-tds: dir-or-file-in-opt
+*: dir-or-file-in-opt
+dir-or-file-in-opt
+debian-changelog-line-too-long
+bad-distribution-in-changes-file
+debian-changelog-line-too-long
+symbols-declares-dependency-on-other-package qtbase-abi-*
+missing-build-dependency-for-dh-addon
+package-name-doesnt-match-sonames
+extra-license-file
+script-not-executable usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/unix/findclasslist.pl
+build-depends-on-essential-package-without-using-version
+license-problem-non-free-RFC
+privacy-breach-facebook
+image-file-in-usr-lib
+privacy-breach-google-adsense
+privacy-breach-logo
+shlib-missing-in-control-file libQt5EglDeviceIntegration
+shlib-missing-in-control-file libQt5XcbQpa
+shlib-missing-in-symbols-control-file libQt5EglDeviceIntegration
+shlib-missing-in-symbols-control-file libQt5XcbQpa
+symbols-file-contains-current-version-with-debian-revision

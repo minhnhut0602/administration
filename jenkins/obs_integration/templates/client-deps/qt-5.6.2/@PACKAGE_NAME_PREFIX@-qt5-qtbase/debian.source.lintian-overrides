@@ -1,0 +1,6 @@
+# Needed on OBS
+qt5-qtbase source: license-problem-non-free-RFC *
+qt5-qtbase source: build-depends-on-obsolete-package *
+qt5-qtbase source: build-depends-on-essential-package-without-using-version *
+qt5-qtbase source: no-standards-version-field *
+missing-build-dependency-for-dh-addon

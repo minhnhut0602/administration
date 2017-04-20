@@ -1,0 +1,1284 @@
+-------------------------------------------------------------------
+Wed Mar 15 17:31:14 UTC 2017 - jw@owncloud.com
+
+- Support for RHEL-7 and RHEL-6 added.
+
+-------------------------------------------------------------------
+Wed Jan 25 15:32:44 UTC 2017 - crrodriguez@opensuse.org
+
+- Require pkgconfig not pkg-config to fix fedora builds 
+
+-------------------------------------------------------------------
+Sat Jan 21 22:46:42 UTC 2017 - jnweiger@gmail.com
+
+- Renamed package from libqt5-qtbase to qt5-qtbase, 
+  all the other packages also don't have the lib package name prefix
+
+-------------------------------------------------------------------
+Fri Jan 20 02:41:19 UTC 2017 - crrodriguez@opensuse.org
+
+- fix Fedora* builds 
+
+-------------------------------------------------------------------
+Tue Jan 17 22:53:43 UTC 2017 - jw@owncloud.com
+
+- stripped arm support
+
+-------------------------------------------------------------------
+Sun Oct  9 16:49:29 UTC 2016 - hrvoje.senjan@gmail.com
+
+- Add some QtDBus fixes from upstream:
+  Make-QDBusConnectionPrivaterelaySignal-be-called-in-the-right-thread.patch
+  Merge-the-QDBusMetaTypes-custom-information-to-QDBusConnectionManager.patch
+  Fix-some-QtDBus-crashes-during-application-destruction.patch
+
+-------------------------------------------------------------------
+Fri Oct  7 22:08:16 UTC 2016 - hrvoje.senjan@gmail.com
+
+- Update to 5.6.2
+  * For more details please see:
+    https://www.qt.io/qt5-6/
+- Drop upstreamed use-freetype-default.patch,
+  xcb-Fix-drop-of-text-uri-list-and-text-html.patch,
+  xcb-Fix-dropping-URL-on-Firefox-window.patch,
+  xcb-Send-also-text-plain-when-a-text-uri-list-is-dropped.patch
+
+-------------------------------------------------------------------
+Tue Sep 27 08:00:02 UTC 2016 - hrvoje.senjan@gmail.com
+
+- Added Stop-unloading-plugins-in-QPluginLoader-and-QFactoryLoader.patch
+  (boo#1001362, boo#965653)
+
+-------------------------------------------------------------------
+Sat Sep 24 18:25:41 UTC 2016 - hrvoje.senjan@gmail.com
+
+- Another set of upstream patches for the XCB plugin:
+  XCB-Drop-from-external-app-fix-keyboard-modifier-state.patch
+  xcb-Dont-send-QtWindowNoState-event-when-hiding-minimized-window.patch
+  xcb-Use-the-state-of-the-key-event-to-process-it.patch
+
+-------------------------------------------------------------------
+Sat Jul  2 18:52:10 UTC 2016 - hrvoje.senjan@gmail.com
+
+- Add drag-and-drop fixes from upstream:
+  xcb-Fix-drop-of-text-uri-list-and-text-html.patch
+  xcb-Fix-dropping-URL-on-Firefox-window.patch
+  xcb-Send-also-text-plain-when-a-text-uri-list-is-dropped.patch
+
+-------------------------------------------------------------------
+Wed Jun  8 14:15:14 UTC 2016 - hrvoje.senjan@gmail.com
+
+- Update to 5.6.1
+  * For more details please see:
+    http://blog.qt.io/blog/2016/06/08/qt-5-6-1-released/
+- Drop upstreamed patches:
+  0005-xcb-Properly-initialize-available-geometry-when-XRan.patch
+  Fix-QtDBus-deadlock-inside-kded-kiod.patch
+  0007-xcb-Deliver-mouse-enter-event-to-window-when-closing.patch
+  0009-Expose-the-number-of-X-screen-through-the-QXcbScreen.patch
+  0001-xcb-XInput2-fixes-enter-leave-event-fixes.patch
+  0002-xcb-Correct-enter-leave-event-handling-when-mouse-bu.patch
+  0015-Use-the-state-of-the-key-event-to-process-it.patch
+  0012-xcb-Merge-_NET_WM_STATE-hints-instead-of-overwriting.patch
+  0004-xcb-Fix-drag-and-drop-between-xcb-screens.patch
+  QtDBus-finish-all-pending-call-with-error-if-disconnected.patch
+  0010-xcb-mark-mouse-events-from-tablet-devices-as-synthes.patch
+  0011-xcb-Initialize-all-xcb_client_message_event_t-member.patch
+  0008-xcb-resourceType-names-must-have-only-small-letters.patch
+  0016-xcb-Fix-drag-and-drop-to-applications-like-Emacs-and.patch
+  0013-xcb-Fix-interpretation-of-the-size-from-RRCrtcChange.patch
+  0006-xcb-properly-initialize-size-in-millimeters-if-XRand.patch
+  0003-xcb-Fix-not-delivering-focusIn-event-on-hide-show.patch
+  QtDBus-clean-up-signal-hooks-and-object-tree-in-closeConnection.patch
+  0014-xcb-Properly-process-enter-leave-events.patch
+
+-------------------------------------------------------------------
+Sat Apr 23 18:04:33 UTC 2016 - hrvoje.senjan@gmail.com
+
+- Add patches from upstream:
+  0001-xcb-XInput2-fixes-enter-leave-event-fixes.patch
+  0002-xcb-Correct-enter-leave-event-handling-when-mouse-bu.patch
+  0003-xcb-Fix-not-delivering-focusIn-event-on-hide-show.patch
+  0004-xcb-Fix-drag-and-drop-between-xcb-screens.patch
+  0005-xcb-Properly-initialize-available-geometry-when-XRan.patch
+  0006-xcb-properly-initialize-size-in-millimeters-if-XRand.patch
+  0007-xcb-Deliver-mouse-enter-event-to-window-when-closing.patch
+  0008-xcb-resourceType-names-must-have-only-small-letters.patch
+  0009-Expose-the-number-of-X-screen-through-the-QXcbScreen.patch
+  0010-xcb-mark-mouse-events-from-tablet-devices-as-synthes.patch
+  0011-xcb-Initialize-all-xcb_client_message_event_t-member.patch
+  0012-xcb-Merge-_NET_WM_STATE-hints-instead-of-overwriting.patch
+  0013-xcb-Fix-interpretation-of-the-size-from-RRCrtcChange.patch
+  0014-xcb-Properly-process-enter-leave-events.patch
+  0015-Use-the-state-of-the-key-event-to-process-it.patch
+  0016-xcb-Fix-drag-and-drop-to-applications-like-Emacs-and.patch
+
+-------------------------------------------------------------------
+Fri Mar 18 19:03:01 UTC 2016 - hrvoje.senjan@gmail.com
+
+- Update to 5.6.0
+  * For more details please see:
+    http://blog.qt.io/blog/2016/03/16/qt-5-6-released/
+    and https://wiki.qt.io/New_Features_in_Qt_5.6
+- Added patches for various QtDBus issues:
+  Fix-QtDBus-deadlock-inside-kded-kiod.patch,
+  QtDBus-clean-up-signal-hooks-and-object-tree-in-closeConnection.patch
+  and QtDBus-finish-all-pending-call-with-error-if-disconnected.patch
+- Added tell-the-truth-about-private-api.patch: mark private and QPA API
+  with symbols for only current patch release
+- Drop obsolete and/or upstreamed patches:
+  xcb-fix-yet-another-crash-when-screens-are-disconnected.patch,
+  xcb-dont-crash-in-mapToNativemapFromNative-if-the-screen-is-null.patch,
+  qtwidgets_do_not-hide_show_via_WA_OutsideWSRange_for_native_widgets.patch,
+  protect-geometry-QTBUG-40584.patch,
+  move-the-official-Qt-version-from-qglobal-to-qmake-conf.patch,
+  QMimeDatabase-follow-symlinks-when-checking-for-FIFO.patch,
+  Fix-QtCore-compilation-with-clang.patch,
+  Add-option-to-disable-session-management-by-closing-windows.patch,
+  Add-an-automatic-use-of-the-ELF-versioned-QtCore-symbol.patch,
+  Add-a-qt_version_tag-symbol-to-QtCore-that-uses-ELF-versions.patch,
+  Add-a-linker-version-script-to-Qt-libraries.patch,
+  0005-Restore-documented-behavior-for-the-WA_X11NetWmWindo.patch,
+  0001-Fix-exclusion-of-anonymous-ciphers.patch and
+  0001-Fix-QWidget-setWindowRole.patch
+
+-------------------------------------------------------------------
+Wed Mar  9 15:59:46 UTC 2016 - mlin@suse.com
+
+- Merge libqt5-qtbase-platformtheme-gtk2 back into libQt5Gui5 (bsc#969935)
+  * align with old libQt5Gui5 where libqgtk2.so has provided
+
+-------------------------------------------------------------------
+Sun Feb 21 00:52:42 UTC 2016 - wbauer@tmo.at
+
+- Added QMimeDatabase-follow-symlinks-when-checking-for-FIFO.patch
+  to fix dolphin freeze when opening a folder containing symlinks
+  to special files (boo#957006, qtbug#48529)
+
+-------------------------------------------------------------------
+Sat Feb 20 16:08:45 UTC 2016 - hrvoje.senjan@gmail.com
+
+- Update Add-option-to-disable-session-management-by-closing-windows.patch
+  to version actually commited upstream
+
+-------------------------------------------------------------------
+Wed Feb 10 12:28:49 UTC 2016 - alarrosa@suse.com
+
+- Added 0001-Fix-exclusion-of-anonymous-ciphers.patch from upstream
+  to disable exp-adh and aecdh ciphers.
+- Added disable-rc4-ciphers-bnc865241.diff to disable RC4 based ciphers
+  which are now considered insecure (bnc#865241)
+
+-------------------------------------------------------------------
+Sat Jan 30 18:14:50 UTC 2016 - hrvoje.senjan@gmail.com
+
+- Added Add-option-to-disable-session-management-by-closing-windows.patch
+  API adition to QSessionManager as first step in resolving
+  kde#354724 and boo#955280
+
+-------------------------------------------------------------------
+Wed Oct 28 19:41:36 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Added qtwidgets_do_not-hide_show_via_WA_OutsideWSRange_for_native_widgets.patch
+  (qtbug#48321)
+
+-------------------------------------------------------------------
+Fri Oct 16 20:22:25 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Update to 5.5.1 (boo#954149)
+  * For more details please see:
+    http://blog.qt.io/blog/2015/10/15/qt-5-5-1-released/
+- Drop patches merged upstream:
+  0002-xcb-Fix-getting-the-window-types-from-the-property-o.patch
+  0003-Fix-centering-dialogs.patch
+  0004-xcb-Set-_NET_WM_WINDOW_TYPE-from-a-single-place.patch
+  0006-xcb-set-SM_CLIENT_ID-property.patch
+  Fix-compile-error-on-big-endian.patch
+  Fix-shortcuts-with-keypad-keys.patch
+  QDate_QTime-fix-SiC-introduced-by-adding-new-non-explicit-ctors.patch
+  QMimeDatabase-use-QElapsedTimer.patch
+  ignore-disabling-of-outputs-in-the-middle-of-the-mode-switch.patch
+  when-a-screen-comes-back-online-the-windows-need-to-be-told-about-it.patch
+- Added Fix-QtCore-compilation-with-clang.patch and
+  move-the-official-Qt-version-from-qglobal-to-qmake-conf.patch in
+  order to remove link-time warnings (warning: type and size of dynamic
+  symbol `qt_version_tag@@Qt_5.5' are not defined)
+
+-------------------------------------------------------------------
+Mon Oct 12 17:53:42 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Added xcb-dont-crash-in-mapToNativemapFromNative-if-the-screen-is-null.patch
+  and xcb-fix-yet-another-crash-when-screens-are-disconnected.patch
+  (kde#341497, qtbug#47385)
+
+-------------------------------------------------------------------
+Fri Oct  9 19:42:43 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Added QDate_QTime-fix-SiC-introduced-by-adding-new-non-explicit-ctors.patch
+
+-------------------------------------------------------------------
+Wed Oct  7 15:11:51 UTC 2015 - alarrosa@suse.com
+
+- When in SLE12, use the internal Harfbuzz version instead of the system
+  one (which is too old for Qt's requirements)
+
+-------------------------------------------------------------------
+Sun Sep 27 08:43:03 UTC 2015 - schwab@suse.de
+
+- Fix-compile-error-on-big-endian.patch: Fix compile error on big endian
+
+-------------------------------------------------------------------
+Tue Aug 18 16:38:29 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Added patches from upstream:
+  ignore-disabling-of-outputs-in-the-middle-of-the-mode-switch.patch
+  (qtbug#44158, qtbug#46786, qtbug#46822)
+  when-a-screen-comes-back-online-the-windows-need-to-be-told-about-it.patch
+  (qtbug#47041)
+
+-------------------------------------------------------------------
+Sun Aug 16 08:31:58 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Update to 5.5.0
+  * For more details please see:
+    http://blog.qt.io/blog/2015/07/01/qt-5-5-released/
+    and https://wiki.qt.io/New_Features_in_Qt_5.5
+- Drop patches merged upstream:
+  0001-Speed-up-compose-file-parsing-in-the-X11-composition.patch,
+  0002-Speed-up-application-startup-on-X11.patch,
+  Fix-regression-in-compose-table-parsing.patch,
+  libqt5-libtool-nodate.diff and
+  make-qdbusxml2cpp-output-reproducible.patch
+- Add patches from upstream:
+  Add-a-linker-version-script-to-Qt-libraries.patch,
+  Add-a-qt_version_tag-symbol-to-QtCore-that-uses-ELF-versions.patch
+  and Add-an-automatic-use-of-the-ELF-versioned-QtCore-symbol.patch
+- Added tslib-devel and libinput-devel (Build)Requires
+- Drop all openSUSE 13.1 conditionals, we won't build Qt >= 5.5 on
+  that distro version anymore
+
+-------------------------------------------------------------------
+Tue Aug  4 19:05:31 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Update QMimeDatabase-use-QElapsedTimer.patch to latest version
+
+-------------------------------------------------------------------
+Tue Jul 28 21:39:35 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Added QMimeDatabase-use-QElapsedTimer.patch: reduces the number
+  of syscalls greatly, by avoiding the timezone conversion every time;
+  massively improves kbuildsycoca5 speed
+
+-------------------------------------------------------------------
+Sun Jul 26 15:30:15 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Fix the suse_version condition checks - treat Leap equally as 13.2
+  wrt which system libs shall be used
+
+-------------------------------------------------------------------
+Tue Jun  9 19:04:26 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Add patches from upstream:
+  0001-Fix-QWidget-setWindowRole.patch
+  0002-xcb-Fix-getting-the-window-types-from-the-property-o.patch
+  0003-Fix-centering-dialogs.patch
+  0004-xcb-Set-_NET_WM_WINDOW_TYPE-from-a-single-place.patch
+  0005-Restore-documented-behavior-for-the-WA_X11NetWmWindo.patch
+  0006-xcb-set-SM_CLIENT_ID-property.patch
+
+-------------------------------------------------------------------
+Wed Jun  3 22:55:30 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Update to 5.4.2
+ * Important Behavior Changes:
+   - EXIF orientation is no longer applied to JPEG images on read.
+     EXIF orientation on JPEG was introduced in 5.4.0, but due to
+     a bug the most common EXIF-format (big-endian) was not working
+     until 5.4.1. 5.4.2 restores the behavior of 5.4.0 and earlier
+     for most EXIF-tagged JPEGs.
+     EXIF orientation will be an opt-in starting with Qt 5.5.
+   - On x86 and x86-64 systems with ELF binaries (especially Linux),
+     due to a new optimization in GCC 5.x in combination with a recent
+     version of GNU binutils, compiling Qt applications with -fPIE
+     is no longer enough with GCC 5.x. Applications now need to be
+     compiled with the -fPIC option if Qt's option "reduce relocations"
+     is active. For backward compatibility only, Qt accepts the use
+     of -fPIE for GCC 4.x versions.
+     Note that Clang is known to generate incompatible code even
+     with -fPIC if the -flto option is active.
+     Applications using qmake or cmake >= 2.8.12 as their build
+     system will adapt automatically. Applications using an older
+     release of cmake in combination with GCC 5.x need to change
+     their CMakeLists.txt to add Qt5Core_EXECUTABLE_COMPILE_FLAGS
+     to CMAKE_CXX_FLAGS. In particular, applications using
+     cmake >= 2.8.9 and < 2.8.11 will continue to build   with the
+     -fPIE option and invoke the special compatibility mode
+     if using GCC 4.x.
+  * Bugfix release, for more details please see:
+    http://blog.qt.io/blog/2015/06/02/qt-5-4-2-released/
+- Drop patches merged upstream:
+  Call-ofono-nm-Registered-delayed-in-constructor-othe.patch
+  Fix-Meta-shortcuts-on-XCB.patch
+  Fix-upload-corruptions-when-server-closes-connection.patch
+  Fixed-a-deadlock-when-the-lock-file-is-corrupted.patch
+  Handle-SelectionWindowDestroy-in-QXcbClipboard.patch
+  Make-qglobal.h-complain-if-you-use-fPIE.patch
+  Make-sure-theres-a-scene-before-using-it.patch
+  QSystemTrayIcon-handle-submenus-correctly.patch
+  Require-fPIC-instead-of-just-fPIE-for-reduce-relocations.patch
+  Try-to-ensure-that-fPIC-is-used-in-CMake-builds.patch
+  Update-mouse-buttons-from-MotionNotify-events.patch
+  fix-a-division-by-zero-when-processing-malformed-BMP-files.patch
+- Added cmake (Build)Requires to get autoprovides for all Qt modules
+
+-------------------------------------------------------------------
+Mon May 18 13:34:07 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Added patches from upstream:
+  Try-to-ensure-that-fPIC-is-used-in-CMake-builds.patch,
+  Require-fPIC-instead-of-just-fPIE-for-reduce-relocations.patch
+  and Make-qglobal.h-complain-if-you-use-fPIE.patch
+  (qtbug#45755)
+
+-------------------------------------------------------------------
+Sat May 16 08:24:36 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Add Fix-shortcuts-with-keypad-keys.patch
+  (qtbug#20191,qtbug#33093,kde#344638)
+
+-------------------------------------------------------------------
+Tue May  5 01:05:55 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Added patches from upstream:
+  Fix-upload-corruptions-when-server-closes-connection.patch and
+  Fixed-a-deadlock-when-the-lock-file-is-corrupted.patch (qtbug#44771)
+
+-------------------------------------------------------------------
+Sat Apr 25 01:30:11 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Fixup previous change to also handle arguments in specs using %qmake5
+- Also add QMAKE_LFLAGS to the macro
+
+-------------------------------------------------------------------
+Fri Apr 24 07:41:31 UTC 2015 - joerg.lorenzen@ki.tng.de
+
+- Added QMAKE_CXXFLAGS and QMAKE_CFLAGS to macro %qmake5.
+
+-------------------------------------------------------------------
+Wed Apr 15 12:53:21 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Added patches from upstream:
+  0001-Speed-up-compose-file-parsing-in-the-X11-composition.patch
+  0002-Speed-up-application-startup-on-X11.patch and
+  Fix-regression-in-compose-table-parsing.patch
+
+-------------------------------------------------------------------
+Thu Apr  9 17:29:15 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Add cleaning of QMAKE_PRL_BUILD_DIR from prl files in
+  %qmake5_install macro
+
+-------------------------------------------------------------------
+Fri Feb 27 17:19:10 UTC 2015 - hrvoje.senjan@gmail.com
+
+-  Added fix-a-division-by-zero-when-processing-malformed-BMP-files.patch,
+   CVE-2015-0295
+
+-------------------------------------------------------------------
+Tue Feb 24 16:10:10 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Update to 5.4.1:
+  * Important Behavior Changes:
+    * Restored binary compatibility with Qt 5.3.2 on Windows when
+      using MSVC 2012 or MSVC 2013. This means that Qt 5.4.1 is no
+      longer binary compatible with Qt 5.4.0 when using either of
+      those compilers.
+    * [QTBUG-42594] OS X binary package: fixed incorrect linking
+      to libraries in /opt/local/lib
+  * Library:
+    * QtCore:
+      * [QTBUG-43893] Fixed memory leak in qSetMessagePattern
+      * [QTBUG-43513] QXmlStreamReader: Correctly parse XML
+        containing NUL bytes in the input stream
+      * [QTBUG-43352] QTemporaryDirectory: Properly clean up in
+        case of a failure
+      * [QTBUG-43827] Fixed regression in QSortFilterProxyModel
+        which crashed when sorting a tree model
+    * QtGui:
+      * [QTBUG-44273] Fixed misplacement of outlined text with
+        native text rendering
+      * [QTBUG-44147] Fixed VNC not working on some VNC servers
+      * [QTBUG-43850] Fixed crash with multi-threaded font usage
+      * [QTBUG-43850] Made the old harfbuzz fallback available
+        at runtime
+      * Improvements to the experimental high-dpi support
+      * [QTBUG-43318] Better resolving of GLES3 functions to
+        avoid issues when deploying on systems with GLES 2.0 only
+    * QtWidgets:
+      * [QTBUG-43830] Fixed crash in stylesheets when
+        styling QProgressBar
+      * [QTBUG-43663] QColorDialog: Don't lose focus while
+        color picking
+    * QtNetwork:
+      * [QTBUG-43793] Fixed disconnections of QSSLSocket after
+        starting encryption
+    * QtSql:
+      * [QTBUG-36211] qpsql: Added timezone support for
+        datetime fields.
+      * qodbc: Fixed converted string values on Microsoft SQL
+        Server 2012
+      * [QTBUG-43874] QSqlQuery: Fixed failure of multiple
+        execBatch() calls after  a single prepare() call
+    * QtPrintSupport:
+      * [QTBUG-43124] Fixed QPrinter::{width,height} return values
+  *  Platform Specific Changes:
+    * Linux/XCB:
+      * [QTBUG-43436] Fixed regression when drag and drop to
+        other applications
+      * [QTBUG-43809] Turned off font hinting when doing
+        high DPI scaling
+      * [QTBUG-43743] Fixed constantly resizing bigger window when
+        devicePixelRatio is greater than 1
+      * [QTBUG-43713] Fixed problems with multiple screens with
+        different device pixel ratios regarding window mapping
+        and font sizes.
+      * [QTBUG-43688] Fixed physical DPI and size for
+        rotated screens on X11
+      * [QTBUG-43049] Fixed grabKeyboard and grabMouse
+      * [QTBUG-36862] Now sends a leave event to the other window
+        when a popup shows which grabs the input
+      * [QTBUG-41590] Turned off subpixel gamma-correction on XCB
+      * Added support for SelectionClientClose in QXcbClipboard
+      * Fixed -nograb and -dograb arguments
+      * [QTBUG-43623] Fixed use after free
+      * [QTBUG-43436] Fixed regression in DnD. Make sure to preserve
+        the QDrag until all data has been received.
+  *  Tools:
+    * configure & build system:
+      * configure will now reject invalid -no-feature-* options.
+      * pkg-config assisted libudev detection was fixed.
+      * [QTBUG-43302][Android] The Android style is included
+        when cross-building on Windows as well.
+      * [QTBUG-43205][Unix] Fixed build D-Bus headers cannot be found.
+    * qmake:
+      * [QTBUG-39690][Windows] Fixed file separators in 'make clean'.
+      * [QTBUG-40264][Unix] Fixed 'make distclean' for a dynamic
+        library target.
+      * [QTBUG-42678] 'make distclean' now removes .qmake.{stash|super}.
+      * [QTBUG-43026][VS2010+] Fixed compilation of .rc files.
+      * [QTBUG-43457][MSVC] Fixed QMAKE_TARGET.arch for
+        amd64_x86 x-build.
+      * INCLUDEPATH+=. is now unnecessary with all generators.
+  * For more details please see:
+    http://blog.qt.io/blog/2015/02/24/qt-5-4-1-released/
+- Drop merged or obsolete patches:
+  qmake-add-usr-include.diff, QTBUG41590.patch,
+  Handle-SelectionClientClose-in-QXcbClipboard.patch,
+  qimage_conversions.cpp-Fix-build-on-big-endian-syste.patch,
+  Fix-use-after-free-bug.patch, fix-drag-and-drop-regression.patch,
+  Fix-detection-of-GCC5.patch, Fix-typo-in-Qt5CoreMacroscmake.patch,
+  Fix-physical-DPI-and-size-for-rotated-screens-on-X11.patch,
+  X11-devicePixelRatio-screen-mapping-fix.patch,
+  Multi-screen-DPI-support-for-X11.patch and
+  xcb-Dont-return-0-from-QXcbKeyboard-possibleKeys.patch
+- Added Handle-SelectionWindowDestroy-in-QXcbClipboard.patch and
+  Call-ofono-nm-Registered-delayed-in-constructor-othe.patch from
+  upstrean
+- Make sure each lib requires equal version of other qtbase libs
+  it needs (added filtering for shlib-fixed-dependency to rpmlintrc
+  accordingly)
+
+-------------------------------------------------------------------
+Wed Feb 18 01:41:07 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Added patches from upstream:
+  Fix-Meta-shortcuts-on-XCB.patch (qtbug#43572),
+  Fix-detection-of-GCC5.patch,
+  Fix-physical-DPI-and-size-for-rotated-screens-on-X11.patch
+  (qtbug#43688), Fix-typo-in-Qt5CoreMacroscmake.patch,
+  Make-sure-theres-a-scene-before-using-it.patch (qtbug#44509),
+  Multi-screen-DPI-support-for-X11.patch (qtbug#43713),
+  QSystemTrayIcon-handle-submenus-correctly.patch,
+  Update-mouse-buttons-from-MotionNotify-events.patch
+  (qtbug#32609, qtbug#35065, qtbug#43776, qtbug#44166, qtbug#44231),
+  X11-devicePixelRatio-screen-mapping-fix.patch (qtbug#43713) and
+  xcb-Dont-return-0-from-QXcbKeyboard-possibleKeys.patch
+  (qtcreatorbug#9589)
+
+-------------------------------------------------------------------
+Tue Feb  3 13:48:49 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Fixed qt_instdate generation, so the Qt5Core library doesn't have
+  DATE embedded
+- Drop fdupes usage as it provides unpredictable results, and fools
+  build-compare
+- Add libqt5-qtbase-rpmlintrc due to duplicates waste warnings: we
+  rather have a few bytes more than to republish same binaries due
+  to fdupes
+- Added make-qdbusxml2cpp-output-reproducible.patch: don't include
+  date/time in the generated include guards; prevents unnecessary
+  rebuilds
+- Added fix-drag-and-drop-regression.patch from upstream,
+  fixes QTBUG-43436
+
+-------------------------------------------------------------------
+Mon Jan 12 16:33:18 UTC 2015 - hrvoje.senjan@gmail.com
+
+- Added Fix-use-after-free-bug.patch from upstream
+  (qtbug#43623, boo#870151)
+
+-------------------------------------------------------------------
+Thu Dec 25 10:37:17 UTC 2014 - schwab@suse.de
+
+- qimage_conversions.cpp-Fix-build-on-big-endian-syste.patch: Fix build on
+  big endian systems
+
+-------------------------------------------------------------------
+Tue Dec 16 09:17:05 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Don't override the shlib generator, but split gtk platformtheme
+  into platformtheme-gtk2 subpackage, the former approach is creating
+  problems with other dependant packages
+
+-------------------------------------------------------------------
+Wed Dec 10 11:00:05 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Update to 5.4 Final
+  * For more details please see:
+    http://blog.qt.digia.com/blog/2014/12/10/qt-5-4-released/
+    and http://qt-project.org/wiki/New-Features-in-Qt-5.4
+- Added Handle-SelectionClientClose-in-QXcbClipboard.patch, kde#329174
+
+-------------------------------------------------------------------
+Thu Nov 27 15:46:15 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Update to 5.4 RC
+  * For more details please see:
+    http://blog.qt.digia.com/blog/2014/11/27/qt-5-4-release-candidate-available/
+    and http://qt-project.org/wiki/New-Features-in-Qt-5.4
+- New libQt5PlatformHeaders-devel subpackage
+- Use one global define for gles on arm and aarch
+- (Build)Require Mesa-libGLESv3-devel when building with gles
+- Use system harfbuzz on 13.2 and newer
+- Filter out requires obtained by dependency generators.
+  gtk platformtheme now won't pull in gtk libraries, so users can
+  have a gtk-free envirement if wanted. Those DE's that do need that
+  platformplugin will already have gtk present
+- Drop patches merged upstream:
+  0001-Add-QFont-strategy-to-disable-subpixel-antialiasing.patch
+  0001-Allow-panels-outside-of-availableGeometry.patch
+  0001-QFileDialog-emit-urlsSelected-urlSelected-in-accept.patch
+  0001-QKdeTheme-use-system-wide-kdeglobals-as-a-fallback.patch
+  00010-Replace-the-const-QString-global-static-with-a-QStri.patch
+  00011-Use-correct-signal-name-when-disconnecting.patch
+  0002-Always-lock-the-DBus-dispatcher-before-dbus_connecti.patch
+  0002-Move-SubpixelAntialiasingType-from-QFontEngineFT-to-.patch
+  0002-QUrl-fromLocalFile-QString-should-lead-to-an-empty-U.patch
+  0003-QDBusConnection-Merge-the-dispatch-and-the-watch-and.patch
+  0003-QFileDialog-turn-workingDirectory-into-a-QUrl.patch
+  0003-Support-autohint-and-lcdfilter-fontconfig-configurat.patch
+  0004-GTK2-theme-should-use-GTK-configured-font-variant.patch
+  0004-Partially-revert-Fix-a-deadlock-introduced-by-the-ra.patch
+  0004-QFileDialog-implement-getOpenFileUrl-and-friends-for.patch
+  f1ee10f81ac18789e9a7dc715b464415ba2bc2b8.patch
+  libqt5-add-support-for-byte-swapping.patch
+  libqt5-byte-order-byte-is-address0.patch
+
+-------------------------------------------------------------------
+Tue Nov 11 19:34:51 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Update QTBUG41590.patch for commit that was pushed upstream
+
+-------------------------------------------------------------------
+Wed Nov  5 16:51:36 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Added patches from upstream:
+  0001-Allow-panels-outside-of-availableGeometry.patch (kde#339846)
+  and 0002-Always-lock-the-DBus-dispatcher-before-dbus_connecti.patch,
+  0003-QDBusConnection-Merge-the-dispatch-and-the-watch-and.patch,
+  0004-Partially-revert-Fix-a-deadlock-introduced-by-the-ra.patch,
+  for QTBUG#42189
+
+-------------------------------------------------------------------
+Wed Oct 29 19:09:33 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Don't install CMake files for plugins, they are useful only for
+  bundled Qt builds
+- Downgrade sql-plugins from libQt5Sql-devel's requires to suggests
+- Added QTBUG41590.patch, improve font rendering
+  (QTBUG41590,QTBUG40971)
+
+-------------------------------------------------------------------
+Sun Oct 12 15:21:11 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Added 0001-QFileDialog-emit-urlsSelected-urlSelected-in-accept.patch,
+  0002-QUrl-fromLocalFile-QString-should-lead-to-an-empty-U.patch,
+  0003-QFileDialog-turn-workingDirectory-into-a-QUrl.patch and
+  0004-QFileDialog-implement-getOpenFileUrl-and-friends-for.patch
+  from upstream to improve QFileDialog behaviour with both local
+  and remote URL's
+- Added 0001-QKdeTheme-use-system-wide-kdeglobals-as-a-fallback.patch:
+  QTBUG-36184
+- Added 0001-Add-QFont-strategy-to-disable-subpixel-antialiasing.patch,
+  0002-Move-SubpixelAntialiasingType-from-QFontEngineFT-to-.patch,
+  0003-Support-autohint-and-lcdfilter-fontconfig-configurat.patch
+  and 0004-GTK2-theme-should-use-GTK-configured-font-variant.patch
+  QTBUG-40396, QTBUG-32254, QTBUG-39643
+
+-------------------------------------------------------------------
+Wed Sep 24 16:23:20 UTC 2014 - mlin@suse.com
+
+- Add libqt5-do-not-use-shm-if-display-name-doesnt-look-local.patch
+  from Michal Srb, bnc#888858
+  * additional check the display name before use SHM, this patch is
+    equivalent to what has been did in Qt4:
+    https://qt.gitorious.org/qt/qt/source/6a7f06d70e1267d3d995a3c863ba8f748d45e531:src/gui/kernel/qapplication_x11.cpp#L1986
+
+-------------------------------------------------------------------
+Mon Sep 22 17:36:17 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Build without sse2 instructions by default for %ix86 architecture,
+  and rebuild QtCore and QtuGui modules with sse2 (they are installed
+  to %_libdir/sse2 (bnc#897758)
+
+-------------------------------------------------------------------
+Tue Sep 16 11:27:49 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Update to 5.3.2 final
+  * No changes since previous snapshot
+  * Use official tars
+
+-------------------------------------------------------------------
+Thu Sep  4 20:37:34 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Update to 5.3.2~git20140904 (r05670f5):
+  * Tip of the bugfix 5.3.2 branch:
+    * Recreate child windows when changing screens
+    * QCoreTextFontDatabase: Remove number type asserts.
+    * QGLXContext survives screen removal
+    * CoreWLan: terminate scan thread in QCoreWlanEngine destructor
+    * Also print the class name in the QObject::killTimer error msg
+    * Initialize textureId in platform backing store
+    * Doc: corrected autolink errors corelib io
+    * Avoid crash if querying device that has gone away
+    * Doc: corrected autolink errors Qjsonvalue
+    * Network: Fix NTLM (SSPI) with HTTP and HTTPS proxies
+    * remove always ask option.
+    * Fix handling QT_IM_MODULE=none
+    * xcb: use keyboard event source window to determine
+      auto-repeat valuen
+    * Fix invalid memcpy(dst, src) calls where dst == src
+    * Fix several regressions in font selection
+    * Detect wrongly labelled wheel buttons
+    * Make QWindowContainer handle drag'n'drop
+    * Resize correctly on orientation change.
+    * Use correct size in fullscreen mode
+    * Properly null-terminate ifreq::irf_name
+    * fingerpaint example: be sensitive to pressure only
+      when supported
+    * Fix a memory leak in QFseventsFileSystemWatcherEngine
+    * Do not set QMAKE_{INC,LIB}DIR_{OPENGL,X11} in the
+      freebsd mkspecs.
+    * refactor disconnectFromFtp to remove cached entries
+      when necessary
+    * Remove reference to gdb_dwarf_index from the
+      freebsd-clang mkspec.
+    * Fix mistake in function extraTryFontsForFamily
+    * Fix rendering of fonts matched based on stretch
+    * Fix x86/32-bit build when using an old version of gcc
+    * Fix selection of fonts based on styleName
+    * QFusionStyle paints sliders outside of clip
+    * Set iMX device specific compiler flags to QMAKE_CFLAGS
+    * Fix QPainter::drawPolyline() painting errors with
+      cosmetic pen
+    * Let QImage::mirrored() retain dots-per-meter settings
+    * Make sure we don't cache old file sizes prior to new writes
+    * Correct the SYNC hint for the release barrier
+    * Fix QT_NO_REGULAREXPRESSION build
+    * Fix QT_NO_ANIMATION build
+    * Fix build with QT_NO_MDIAREA
+    * Show the correct cursor for QLineEdit's side buttons.
+    * Fix disconnect()ing from signals declared in a base class
+    * Fix rendering alpha-blended text which needs to be
+      clipped at the top.
+    * Fix build due to missing include when using a minimal config.
+    * Fix build with QT_NO_DRAGANDDROP
+    * Font Database: Add support for private, system UI
+      font families
+    * Apply upstream patch r1498 to our PCRE copy
+    * Apply upstream patch r1495 to our PCRE copy
+    * Initialize member.
+    * Document missing QLatin1String methods
+    * network tests: add manual test for auth / proxy auth
+    * Uncomment some tests which accidently got commented
+    * Both HiQualAA and normal AA should mean
+      antialiasing in rasterengine.
+    * Check if Start/EndPage returns non-positive value
+      when error checking
+    * GTK file dialog: pre-fill the filename if given to a
+      Save dialog
+    * QFileDialog docs: remove misleading sentence about
+      static functions
+    * Doc: Placed Qt OpenGL class convention in code block.
+    * Undo: Fix state entry bug for parallel state groups
+    * Do not add QOffscreenSurface windows to the global list
+    * tst_QHash: check which of several equal keys is inserted
+    * OpenGL: destroy QGLContext allocated by
+      QGLContext::fromOpenGLContext
+    * tst_QSet: check which of several equal elements is inserted
+    * fix paths in installed qtmain.prl
+    * add /ENTRY:main only for target builds
+    * avoid that CROSS_COMPILE affects host builds
+    * Add missing power button keycode to keymap
+    * Android: export ANDROID_SDK_BUILD_TOOLS_REVISION.
+    * cocoa: Fix compiler warnings about unused functions.
+    * Propagate swapInterval to QGLFormat
+    * Fix double clicks in eglfs
+    * Work around ICC bug in local static symbols for
+      Q_GLOBAL_STATIC
+    * QCoreTextFontDatabase: Fix font weight value when
+      populating a family
+    * Don't convert signed to unsigned when we need all 32bit
+    * Fix compilation if EC is disabled in OpenSSL
+    * Fix warning message when re-setting text on tooltip
+    * Improve dbus cross compilation
+    * Fix buffer overrun error with some proxy servers
+    * QNAM: Fix CPU load for limited upload QIODevice
+    * qmake: Document the "aux" template type.
+    * Use the stateless UTF-8 encoder in QStringRef::toUtf8
+    * Doc: corrected autolink errors in qnamespace.qdoc
+    * QPixmap::fromImage() should detach when changing
+      QImage format
+    * generate QGL header file from qgl.h
+    * Ensure transient parents are top level widgets.
+    * Added stream version into network cache file format
+    * make QtWidgets claim style plugins
+    * CMake: Don't check the existence of GL files in the
+      Qt5Gui package.
+    * QSplitter: Exclude top level widgets from child
+      event handling.
+    * Doc: Hide QTextInlineObject constructor from
+      the documentation
+    * Work around ICC bug in brace initializations
+      containing constexpr
+    * Doc: edited qtxml.qdocconf
+    * xcb: QTabletEvents and proximity events correctly
+      identify the tool
+    * Fixed wrong function name in a file snippet
+    * XCB: Enable loading of the Qt::DragLinkCursor
+    * Fix fallbacks for adapted common script
+    * Fix fallbacks for adapted common script
+    * QSslCertificate: blacklist NIC certificates from India
+    * Doc: moved saxbookmarks example files
+    * tst_qdir: Move QFINDTESTDATA() from init() to constructor.
+    * Doc: moved streambookmarks example files
+    * Don't assert when HB-old is unable to deal with surrogates
+    * REG: Fix nbsp in QTextLayout
+    * Support getting test data from qrc
+    * Document QApplication::cursorFlashTime() can return -1
+    * Fix for code snippet in commandlineparser documentation
+    * Doc: removed trolltech.com from namespace in manual
+      qdocconf file.
+    * Fix typo in QGraphicsView documentation.
+    * Fix QTimer with negative interval in
+      QWidgetLineControl::setCursorBlinkPeriod
+    * Attempt to work with Visual Studio in -Za (strict ANSI) mode
+    * Improve QListWidget documentation.
+    * Fix debug output of QTouchEvent.
+    * Doc: fix a link in QAbstractOpenGLFunctions documentation
+    * Accessibility Linux: Fix crashes when accessing
+      invalid functions
+    * move loading of testability driver from QApplication
+      to QGuiApplication
+    * QPdf::addImage(): avoid a QImage detach when it's in an
+      acceptable Format
+    * Make QDom/QXmlSimpleReader reentrant.
+    * Move QXmlReaderPrivate to private header.
+    * Mac: Don't register for Pan Gestures.
+    * Add opt-out environment variable for @2x images
+    * Listen to touch events on the master device instead of slave.
+    * add support for device linux-arm-hisilicon-hix5hd2-g++
+    * Make tst_QLocale::macDefaultLocale() more robust
+    * Fix some tst_qwidget test cases
+    * xcb: make sure to update window title when it is changed
+    * Skip unstable autotests in QtBase.
+    * Empty icons and Cocoa menu items.
+    * Address Book example: Fix QTableView column sorting
+    * QOpenGLTexture: fix the feature test for Buffer Textures
+    * qDebug: fix data race in qt_message_print
+    * [bcm97425] Fix parameter issue in platformDestroy hook
+    * Doc: Various \note fixes in Qt namespace documentation.
+    * Fix QFileInfoGatherer threading issue
+    * Doc: Fix typo in QScopedValueRollback
+    * Fix pixel noise in X11 systray icons that are not 22x22
+    * Don't compare the target methods for SlotObject connections
+    * qtoolbar: add missing header on OSX.
+    * Remove bogus nullptr check for reference
+    * Support MIPS atomic on pre-MIPS32 architectures
+    * Enable sparc detection.
+    * Remove -Wcast-align from QMAKE_CXXFLAGS.
+    * Create the 64 bits version strings for MIPS, SPARC and S390
+    * Add a comment stating QMutex::isRecursive should be made
+      const in Qt6
+    * Fix QMutex documentation saying some function are static
+      while they are not
+    * Delete qml_plugin_import.cpp file only during distclean
+    * WinRT: no read-only paths in QStandardpaths::writableLocation
+    * Fix compilation on Windows without precompiled headers
+    * QColorDialog: Do not update custom/standard color cells
+      while picking.
+    * Fix -Werror compilation on big-endian
+    * CMake: Allow modules to specify the location of tests.
+    * Mark behavior of QFileInfo::absoluteFilePath as undefined in
+      corner cases
+    * Translate Super/Hyper keys to MetaModifier
+    * Fix logging file location docs
+    * CMake: Report an error if unit tests are not found for
+      a module.
+    * Fix QRingBuffer::readPointerAtPosition()
+    * Make the fetchAndAddRelaxed function a member template
+    * Doc: qInstallMessageHandler cannot return 0.
+    * GIF decoding: do not seek() if the image is loaded
+      over the network
+    * network internals: do not try to cache a deleted entry
+    * Fix memory leaks in QFseventsFileSystemWatcherEngine
+    * Simplify mirroring code and add tests for non-aliged
+      1 bit images
+    * Add that the corner settings are saved/restored
+      with the state
+    * Correct grammar of missing Q_OBJECT macro warning.
+    * Doc: Fix docs for QFontMetrics::height() to match code
+    * Fix installation of private headers generated
+      by wayland-scanner
+    * add buildsystem/qmake changelog
+    * CMake: Load plugin files unconditionally if present.
+    * QIcon: Prefer high-quality images of Windows .ico files.
+    * tst_qicon: Resolve all files using QFINDTESTDATA().
+    * Move most of the QLibraryPrivate initialization to
+      its constructor
+    * QComboBox: update focus policy when setting a new line edit
+    * QDBus: fix data race on isDebugging bool
+    * When filling the path it should use the painter's pen
+      not the state's
+    * Fix data race on QLoggingCategory when using qDebug
+      from multiple threads
+    * Remove the use of QT_STATIC_CONST in QtSql
+    * Fix compilation with /Zc:strictStrings
+    * Correct QImage::fill(uint) on RGBA8888 formats
+    * XCB: Fix leak with touch devices
+    * pass a pointer instead of a reference to initFrom()
+    * Properly check which OpenGL features are supported
+    * Do not overwrite existing event mask of root window
+    * Remove the widget from the stylesheet cache before polishing
+    * QDnsLookup: Fix build with uClibc
+    * Remove unused define XCB_USE_IBUS.
+    * Attempt to fix intel compiler build error.
+    * Use QModelIndex to get the data from underlying model
+    * QGuiApplication: Document -plugin command line argument.
+    * Fix compilation in under -no-c++11 mode
+    * Fix compilation with the Intel compiler on certain systems
+- Drop patches merged upstream:
+  0001-Do-not-overwrite-existing-event-mask-of-root-window.patch,
+  0002-Properly-check-which-OpenGL-features-are-supported.patch,
+  0003-Fix-data-race-on-QLoggingCategory-when-using-qDebug-.patch,
+  0004-QDBus-fix-data-race-on-isDebugging-bool.patch,
+  0005-Translate-Super-Hyper-keys-to-MetaModifier.patch,
+  libqt5-avoid-crash-during-querying-device.patch,
+  libqt5-fix-leak-with-touch-devices-in-xcb.patch and
+  libqt5-listen-to-touch-events-on-the-master-device.patch
+- Added protect-geometry-QTBUG-40584.patch, to workaround QTBUG-40584,
+  so widget geometry is preserved
+- Reorder patches
+
+-------------------------------------------------------------------
+Fri Aug 29 06:57:03 UTC 2014 - mlin@suse.com
+
+- Added upstream patches for bnc#890168
+  * libqt5-fix-leak-with-touch-devices-in-xcb.patch, QTBUG-39596
+  ** fixed a leak what did not free m_touchDevices.
+  * libqt5-listen-to-touch-events-on-the-master-device.patch, QTBUG-38625
+  ** listen to touch events on the master device instead of slave, was also
+     affects by fdo#78345
+  * libqt5-avoid-crash-during-querying-device.patch, QTBUG-40820
+  ** avoid crashes if querying device that has gone away
+
+-------------------------------------------------------------------
+Thu Jul  3 19:17:01 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Added 00010-Replace-the-const-QString-global-static-with-a-QStri.patch,
+  fixes segfaulting in global destructor, for more details see:
+  http://mail.kde.org/pipermail/kde-frameworks-devel/2014-June/017086.html
+- Added 00011-Use-correct-signal-name-when-disconnecting.patch,
+  fixes crash on QtDBus unload
+
+-------------------------------------------------------------------
+Wed Jun 25 10:38:00 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Update to 5.3.1
+  * Bugfix release, for more details please see:
+    http://blog.qt.digia.com/blog/2014/06/25/qt-5-3-1-released/
+- Drop libqt5-fix-the-modal-dialogs-can-go-behind.patch, merged upstream
+- Added patches from upstream:
+  0001-Do-not-overwrite-existing-event-mask-of-root-window.patch -- QTBUG-39648
+  0002-Properly-check-which-OpenGL-features-are-supported.patch -- QTBUG-39730
+  0003-Fix-data-race-on-QLoggingCategory-when-using-qDebug-.patch -- Fix data race on QLoggingCategory
+  0004-QDBus-fix-data-race-on-isDebugging-bool.patch -- fix data race on isDebugging bool
+  0005-Translate-Super-Hyper-keys-to-MetaModifier.patch -- QTBUG-38428
+
+-------------------------------------------------------------------
+Sun Jun  1 23:43:25 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Improve baselibs
+- Improve situation with rpmlints duplicates warnings
+- Make private headers noarch
+
+-------------------------------------------------------------------
+Tue May 27 09:52:05 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Build with pkgconfig(libudev), not pkgconfig(udev)
+
+-------------------------------------------------------------------
+Fri May 23 08:55:44 UTC 2014 - mlin@suse.com
+
+- Fix the modal dialogs can go behind other process windows (QTBUG-35302)
+  * libqt5-fix-the-modal-dialogs-can-go-behind.patch
+
+-------------------------------------------------------------------
+Thu May 22 12:57:48 CEST 2014 - tiwai@suse.de
+
+- Fix broken Gujarati rendering (bnc#878292):
+  libqt5-Fix-Gujarati-font.patch
+
+-------------------------------------------------------------------
+Wed May 21 00:32:51 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Only enable reducing relocations on x86 and x86_64 arches; fixes
+  build for arm, ppc, etc (QTBUG-36129)
+
+-------------------------------------------------------------------
+Mon May 19 23:42:44 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Update to 5.3.0 final
+  * Minor bugfixes over previous RC
+
+-------------------------------------------------------------------
+Sat May 17 17:11:25 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Disable logging to journald for now, as it creates significant
+  performance penalty
+- Don't pass /usr/include to qmake, not needed
+
+-------------------------------------------------------------------
+Thu May  8 17:50:59 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Update to 5.3.0 RC
+  * For more details, please see
+  http://blog.qt.digia.com/blog/2014/05/08/qt-5-3-release-candidate-available/
+  and http://qt-project.org/wiki/New-Features-in-Qt-5.3
+- Drop libqt5-add-better-support-for-keymap-update-handling.patch,
+  libqt5-fix-build-failure-xcb.patch,
+  libqt5-fix-regression-in-key-handling.patch,
+  libqt5-improve-keymap-error-handling.patch and 
+  libqt5-update-bundled-libxkbcommon-version-to-041.patch; merged upstream
+
+-------------------------------------------------------------------
+Tue Apr  8 06:56:21 UTC 2014 - mlin@suse.com
+
+- Add support for byte swapping, bnc#866709
+  * Add libqt5-add-support-for-byte-swapping.patch
+  * Add libqt5-byte-order-byte-is-address0.patch
+- Fix keyboard remapping not applied on Qt5, bnc#866051
+  * Add backported libqt5-add-better-support-for-keymap-update-handling.patch
+  * Add backported libqt5-improve-keymap-error-handling.patch
+  * Add backported libqt5-fix-build-failure-xcb.patch
+  * Add backported libqt5-update-bundled-libxkbcommon-version-to-041.patch
+  * Add backported libqt5-fix-regression-in-key-handling.patch
+
+-------------------------------------------------------------------
+Fri Mar 28 08:22:53 UTC 2014 - hrvoje.senjan@gmail.com
+
+- The no-neon switch no longer exists with 5.3, so drop it: fixes
+  build on arm/aarch64
+
+-------------------------------------------------------------------
+Tue Mar 25 11:44:16 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Update to 5.3.0 beta
+  * New feature release, please see
+  http://blog.qt.digia.com/blog/2014/03/25/qt-5-3-beta-released/
+  and http://qt-project.org/wiki/New-Features-in-Qt-5.3
+- Drop qtbase-qatomic-ppc.patch, merged upstream
+- Added f1ee10f81ac18789e9a7dc715b464415ba2bc2b8.patch: prefer QPA
+  implementation in qsystemtrayicon_x11 if available
+- Added pkgconfig(libsystemd-journal) BuildRequires and activate
+  journald support
+- Added pkgconfig(xkbcommon-x11) BuildRequires with 13.2+: it's now
+  needed for full xkb support, for lower version added xkeyboard-config
+  BuildRequires
+- Ommit QMAKE_STRIP flags in mkspecs/common/linux.conf, otherwise no
+  debuginfo is generated for packages which use qmake buildsystem
+- Droped passing of -javascript-jit, as per upstream changes
+- Rebase libqt5-libtool-nodate.diff for this release
+
+-------------------------------------------------------------------
+Thu Mar 20 22:58:47 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Added use-freetype-default.patch: allow using lcd-default filter
+  regardless of how freetype2 library has been built (w/ & w/o subpixel)
+- Build examples (added examples subpackage)
+- Make sure that Qt5Gui devel package requires libdrm-devel, as it
+  references it's includes in CMake config
+
+-------------------------------------------------------------------
+Sat Mar  1 14:26:50 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Fix wrong libQt5OpenGLExtensions-devel-static requires:
+  pkgconfig(GL) -> pkgconfig(gl)
+
+-------------------------------------------------------------------
+Thu Feb 27 11:08:39 UTC 2014 - schwab@suse.de
+
+- Enable jit only on supported archs
+
+-------------------------------------------------------------------
+Mon Feb 10 11:36:36 UTC 2014 - mlin@suse.com
+
+- Update LICENSE files to %doc
+
+-------------------------------------------------------------------
+Wed Feb  5 17:07:24 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Update to 5.2.1:
+  * For more details please see:
+    http://blog.qt.digia.com/blog/2014/02/05/qt-5-2-1-released/
+- Split out (private) devel packages for each library. Also added
+  common-devel package, which contains mkspecs, and basic binaries
+  (e.g. moc, qmake, rcc, syncqt and uic)
+- Only create qt5 symlinks for binaries which conflict with
+  Qt4 version
+- Remove libtool archives from packages
+- Apply conditionals for %arm also for aarch64
+- Removed unneeded or upstreamed patches:
+  * 0001-Remove-the-GLES-2-dependency-for-eglfs-and-kms.patch
+  * 0002-Fix-configure-script-to-not-dictate-OpenGL-ES-2-when.patch
+  * 0003-EGL-convenience-deal-with-DefaultRenderableType-when.patch
+  * 0004-Do-not-disable-egl-on-desktop-gl-automatically.patch
+  * qt-never-strip.diff
+  * qtbase-opensource-src-5.1.1-bigendian.patch
+- modified patches:
+  * qmake-add-usr-include.diff
+
+-------------------------------------------------------------------
+Fri Jan  3 22:28:56 UTC 2014 - hrvoje.senjan@gmail.com
+
+- Explicitly (Build)Require pkgconfig(harfbuzz) for 13.1+
+- Explicitly activate system-harfbuzz, system-freetype and
+  fontconfig options
+- Drop clucene-core-devel and giflib-devel Build(Requires): unused
+- Drop pkgconfig(atspi-2) (Build)Requires: external libatspi2 is not
+  used during build time (see qtbase commit 4c1c820)
+
+-------------------------------------------------------------------
+Tue Dec 12 14:54:22 UTC 2013 - uweigand@de.ibm.com
+
+- Do not force -javascript-jit on ppc platforms that do not support it.
+
+-------------------------------------------------------------------
+Thu Dec 12 12:28:46 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Update to 5.2.0 final:
+  * For more details please see:
+    http://blog.qt.digia.com/blog/2013/12/12/qt-5-2-released-the-best-qt-yet/
+    http://qt-project.org/qt5/qt52
+    http://qt.digia.com/Product/Whats-New/Qt-52/
+
+-------------------------------------------------------------------
+Wed Dec  4 01:17:30 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Import patches from upstream which make possible to build EGL
+  support without requiring GLES2:
+  0001-Remove-the-GLES-2-dependency-for-eglfs-and-kms.patch
+  0002-Fix-configure-script-to-not-dictate-OpenGL-ES-2-when.patch
+  0003-EGL-convenience-deal-with-DefaultRenderableType-when.patch
+  0004-Do-not-disable-egl-on-desktop-gl-automatically.patch
+- Enable EGL support by adding (Build)Requiring pkgconfig(egl)
+
+-------------------------------------------------------------------
+Fri Nov 29 13:42:39 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Update to 5.2 rc1
+  * New feature release, please see
+  http://blog.qt.digia.com/blog/2013/11/29/qt-5-2-release-candidate-1-available/
+  and http://qt-project.org/wiki/New-Features-in-Qt-5.2
+- Droped xcb_193.patch, included in this release
+- Drop gstreamer-0_10-plugins-base-devel BuildRequires, nothing in
+  qtbase uses gstreamer, and config tests where false positive before
+- Temporary disable qt-never-strip.diff, we can use configure flags
+  for no-strip
+
+-------------------------------------------------------------------
+Wed Nov 27 00:18:38 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Added xcb_193.patch from upstream, for resolving SiC and BiC change
+  in xcb 1.9.2/3 (fdo#71502,fdo#71507,qtbug#34748)
+
+-------------------------------------------------------------------
+Wed Nov  6 19:08:13 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Fix translations macro
+
+-------------------------------------------------------------------
+Thu Oct 24 18:45:14 UTC 2013 - hrvoje.senjan@gmail.com
+
+- gstreamer-0_10-plugins-base-devel are not required for devel
+  subpackage, so remove the Requires
+
+-------------------------------------------------------------------
+Wed Oct 23 17:11:55 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Update to 5.2 beta1
+  * New feature release, please see
+  http://blog.qt.digia.com/blog/2013/10/23/qt-5-2-beta-available/
+  and http://qt-project.org/wiki/New-Features-in-Qt-5.2
+- Change obsoletes of new library and sql plugins packages
+
+-------------------------------------------------------------------
+Fri Oct 18 17:48:59 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Added qtbase-opensource-src-5.1.1-bigendian.patch, also needed
+  for building on PowerPC, otherwise fromWordToBytes is
+  left undeclared
+
+-------------------------------------------------------------------
+Fri Oct 18 12:38:19 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Added qtbase-qatomic-ppc.patch, fixes PowerPC build
+
+-------------------------------------------------------------------
+Wed Oct 16 17:24:48 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Further split libqt5-qtbase package to libQt5Concurrent5,
+  libQt5Core5, libQt5DBus5, libQt5Network5, libQt5Xml5,
+  libQt5PrintSupport5 and libQt5OpenGL5
+- Rename sql plugin subpackages for more consistent naming with the
+  rest of libraries
+- Apply the same solution as with Qt4 with regards to rebuilds:
+  don't use current build date, but rather last changes date
+
+-------------------------------------------------------------------
+Fri Oct  4 14:23:42 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Add convenient macros for packages building against Qt5:
+  %_libqt5_qmake, %qmake5, %make_jobs and %qmake5_install
+
+-------------------------------------------------------------------
+Thu Sep 12 19:58:38 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Added missing pkgconfig(xkbcommon) BuildRequires
+- Drop checks for older openSUSE versions
+- Enable GL ES and kms only on arm for now
+
+-------------------------------------------------------------------
+Thu Sep  5 15:09:28 UTC 2013 - duwe@suse.com
+
+- enable support for opengl es2 and kms
+
+-------------------------------------------------------------------
+Thu Aug 29 16:38:30 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Update to version 5.1.1:
+  * Bugfix release, please see
+  http://blog.qt.digia.com/blog/2013/08/28/qt-5-1-1-released/
+  http://qt.gitorious.org/qt/qtbase/blobs/release/dist/changes-5.1.1
+  and http://qt-project.org/wiki/Qt511KnownIssues for known issues
+- Small spec cleanup
+- Explicitly activate desktop openGL, and only BuildRequire
+  pkgconfig(gl) so whole Mesa stack isn't pulled
+
+-------------------------------------------------------------------
+Sat Aug  3 07:14:30 UTC 2013 - tittiatcoke@gmail.com
+
+- Adjust packaging naming conform Factory standards
+
+-------------------------------------------------------------------
+Sun Jul  7 12:14:37 UTC 2013 - hrvoje.senjan@gmail.com
+
+- Allow co-existance of Qt5 and Qt4:
+  * Install headers in %_includedir/qt5
+  * Install binaries in %_libdir/qt5/bin, create symlinks with -qt5
+    suffixes in %_libdir/qt5/bin and %_bindir
+- Spec cleanup:
+  * Removed checks for obsolete opensuse versions
+- Add new macros.qt5, which should be utilized for other Qt5 modules
+- Added baselibs.conf
+
+-------------------------------------------------------------------
+Sun Jul  7 07:23:51 UTC 2013 - stephan.binner@basyskom.com
+
+- update to Qt 5.1 release
+
+-------------------------------------------------------------------
+Tue Jun 18 20:00:00 UTC 2013 - stephan.binner@basyskom.com
+
+- update to Qt 5.1 RC 1
+
+-------------------------------------------------------------------
+Mon May 20 20:00:00 UTC 2013 - stephan.binner@basyskom.com
+
+- update to Qt 5.1 Beta 1
+
+-------------------------------------------------------------------
+Tue Apr  9 20:00:00 UTC 2013 - stephan.binner@basyskom.com
+
+- update to Qt 5.1 Alpha 1
+
+-------------------------------------------------------------------
+Fri Mar 29 11:58:55 UTC 2013 - stephan.binner@basyskom.com
+
+- update to Qt 5.0.2 RC1
+
+-------------------------------------------------------------------
+Wed Jan 30 19:00:00 UTC 2013 - stephan.binner@basyskom.com
+
+- update to Qt 5.0.1
+
+-------------------------------------------------------------------
+Wed Dec 19 20:40:40 UTC 2012 - stephan.binner@basyskom.com
+
+- update to Qt 5.0 release
+
+-------------------------------------------------------------------
+Thu Dec 13 10:50:52 UTC 2012 - stephan.binner@basyskom.com
+
+- update to Qt 5.0 Release Candidate 2
+
+-------------------------------------------------------------------
+Thu Dec  6 19:54:17 UTC 2012 - stephan.binner@basyskom.com
+
+- update to Qt 5.0 Release Candidate 1
+
+-------------------------------------------------------------------
+Thu Nov 15 12:14:39 UTC 2012 - stephan.binner@basyskom.com
+
+- update to Qt 5.0 Beta 2
+
+-------------------------------------------------------------------
+Thu Aug 30 11:31:45 UTC 2012 - stephan.binner@basyskom.com
+
+- update to Qt 5.0 Beta 1 release
+
+-------------------------------------------------------------------
+Thu May 24 15:29:20 UTC 2012 - stephan.binner@basyskom.com
+
+- update to newer Alpha snapshot / Beta candidate
+
+-------------------------------------------------------------------
+Fri Apr 13 13:22:38 UTC 2012 - stephan.binner@basyskom.com
+
+- rework package splitting for Qt 5 modularization
+
+-------------------------------------------------------------------
+Thu Apr  5 09:56:15 UTC 2012 - dmueller@suse.com
+
+- Initial packaging (Qt 5.0 Alpha)
+

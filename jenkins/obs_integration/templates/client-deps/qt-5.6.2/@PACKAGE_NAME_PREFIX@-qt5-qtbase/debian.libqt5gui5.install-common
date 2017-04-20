@@ -1,0 +1,13 @@
+debian/90qt5-opengl /etc/X11/Xsession.d/91${_oc_pkg_prefix}-qt5-opengl
+${_oc_prefix}/lib/*/libQt5Gui.so.*
+${_oc_prefix}/lib/*/libQt5XcbQpa.so.*
+${_oc_prefix}/lib/*/qt5/plugins/generic/libqtuiotouchplugin.so
+${_oc_prefix}/lib/*/qt5/plugins/imageformats/libqgif.so
+${_oc_prefix}/lib/*/qt5/plugins/imageformats/libqico.so
+${_oc_prefix}/lib/*/qt5/plugins/imageformats/libqjpeg.so
+${_oc_prefix}/lib/*/qt5/plugins/platforminputcontexts/libcomposeplatforminputcontextplugin.so
+${_oc_prefix}/lib/*/qt5/plugins/platforminputcontexts/libibusplatforminputcontextplugin.so
+${_oc_prefix}/lib/*/qt5/plugins/platforms/libqminimal.so
+${_oc_prefix}/lib/*/qt5/plugins/platforms/libqoffscreen.so
+${_oc_prefix}/lib/*/qt5/plugins/platforms/libqxcb.so
+${_oc_prefix}/lib/*/qt5/plugins/xcbglintegrations/*

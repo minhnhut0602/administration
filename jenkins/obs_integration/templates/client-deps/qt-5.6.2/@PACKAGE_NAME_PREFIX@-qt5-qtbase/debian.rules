@@ -1,0 +1,413 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
+DEB_HOST_ARCH_BITS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_BITS)
+DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
+DEB_OS_ID := $(shell . /etc/os-release ; echo "$${ID}_$$VERSION_ID")
+
+export PATH := $(PATH):$(shell pwd)/bin
+export CFLAGS := $(shell dpkg-buildflags --get CFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
+export CXXFLAGS := $(shell dpkg-buildflags --get CXXFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
+export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
+
+## this does not seem to get through:
+export LINTIAN_OPTS := --tags debian-changelog-line-too-long
+export DEBUILD_LINTIAN_OPTS := --tags debian-changelog-line-too-long
+
+# Upstream changelog
+upstream_changes := dist/changes-$(shell dpkg-parsechangelog | sed -n 's/^Version: //p' | cut -f1 -d '-' | sed -e 's/+dfsg//' | sed -e 's/+git.*//')
+# Distribution vendor
+vendor := $(shell dpkg-vendor --query Vendor)
+
+# To easier the files installation according to OSes and CPUs, we create three
+# kinds of install files: foo.install-common, foo.install-$DEB_HOST_ARCH_CPU and
+# foo.install-$DEB_HOST_ARCH_OS. In this case we can fine-tune what we install.
+#
+# Note that if any foo.install-* file exists and foo.install exist too, the
+# later will get overwritten.
+#
+# I've opened a bug in debhelper to allow this:
+# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=703201
+
+# Retrieve packages that have a .install-common file
+pkgs_with_common = $(patsubst debian/%.install-common,%,$(wildcard debian/*.install-common))
+# Retrieve packages that have a .install-$DEB_HOST_ARCH_CPU file
+pkgs_with_arch = $(patsubst debian/%.install-$(DEB_HOST_ARCH_CPU),%,$(wildcard debian/*.install-$(DEB_HOST_ARCH_CPU)))
+# Retrieve packages that have a .install-$DEB_HOST_ARCH_OS file
+pkgs_with_os = $(patsubst debian/%.install-$(DEB_HOST_ARCH_OS),%,$(wildcard debian/*.install-$(DEB_HOST_ARCH_OS)))
+# Prefixed packages. All the meta files need to be renamed accordingly. 
+# CAUTION: Keep in sync with the Binary: list in the *.dsc.in file.
+pkgs_oc_pkg_prefix = libqt5core5a libqt5gui5 libqt5libqgtk2 libqt5network5 libqt5opengl5 libqt5sql5 libqt5sql5-mysql libqt5sql5-odbc libqt5sql5-psql libqt5sql5-sqlite libqt5sql5-tds libqt5xml5 libqt5dbus5 libqt5test5 libqt5concurrent5 libqt5widgets5 libqt5printsupport5 qtbase5-dev qtbase5-private-dev libqt5opengl5-dev qtbase5-dev-tools qt5-qmake qtbase5-examples qtbase5-dbg qtbase5-dev-tools-dbg qtbase5-examples-dbg qt5-default
+lintian_overrides = dir-or-file-in-opt package-name-doesnt-match-sonames license-problem-non-free-RFC privacy-breach-facebook privacy-breach-google-adsense privacy-breach-logo debian-changelog-line-too-long
+
+
+
+ifneq (,$(filter libqt5sql5-ibase,$(shell dh_listpackages)))
+	extra_configure_opts += -plugin-sql-ibase
+else
+	extra_configure_opts += -no-sql-ibase
+endif
+
+no_pch_architectures := arm64
+ifeq ($(DEB_HOST_ARCH),$(findstring $(DEB_HOST_ARCH), $(no_pch_architectures)))
+	extra_configure_opts += -no-pch
+endif
+
+gles2_architectures := armel armhf arm64
+ifeq ($(DEB_HOST_ARCH),$(findstring $(DEB_HOST_ARCH), $(gles2_architectures)))
+	extra_configure_opts += -opengl es2
+else
+	extra_configure_opts += -opengl desktop
+endif
+
+ifneq ($(DEB_HOST_ARCH_OS),$(findstring $(DEB_HOST_ARCH_OS), linux kfreebsd))
+	extra_configure_opts += -no-eglfs
+endif
+
+ifeq ($(DEB_OS_ID),$(findstring $(DEB_OS_ID), debian_7 debian_7.0 Debian_7.0))
+	extra_configure_opts += -gstreamer 0.10
+else
+	extra_configure_opts += -gstreamer 1.0
+endif
+
+# Compile without sse2 support on i386
+# Do not use pre compiled headers in order to be able to rebuild the gui
+# submodule.
+ifeq ($(DEB_HOST_ARCH_CPU),i386)
+	cpu_opt = -no-sse2 -no-pch
+endif
+
+# Run tests only on archs known to pass in the past
+testrun_architectures := amd64 armhf i386
+
+nogoldlinker_architectures := powerpc
+
+ifeq ($(DEB_HOST_ARCH),$(findstring $(DEB_HOST_ARCH), $(nogoldlinker_architectures)))
+	extra_configure_opts += -no-use-gold-linker
+endif
+
+ifeq ($(DEB_HOST_ARCH_OS),linux)
+  ifneq (,$(filter $(DEB_HOST_ARCH),alpha ia64 mips64 mips64el arm64))
+	platform_arg = linux-g++
+  else ifeq ($(DEB_HOST_ARCH_BITS),64)
+	platform_arg = linux-g++-64
+  else
+	platform_arg = linux-g++
+  endif
+else ifeq ($(DEB_HOST_ARCH_OS),hurd)
+	platform_arg = hurd-g++
+else ifeq ($(DEB_HOST_ARCH_OS),kfreebsd)
+	platform_arg = gnukfreebsd-g++
+else
+	$(error Unknown qmake mkspec for $(DEB_HOST_ARCH_OS))
+endif
+
+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+	NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+else
+	NUMJOBS = 1
+endif
+
+%:
+	dh $@ --parallel # --with pkgkde_symbolshelper
+
+x86_architectures := i386 amd64
+
+
+override_dh_auto_configure:
+	echo $(DEB_OS_ID)
+	MAKEFLAGS="-j$(NUMJOBS)" ./configure -confirm-license -v \
+	            -prefix "/usr" \
+	            -bindir "${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/qt5/bin" \
+	            -L      "${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)" \
+	            -libdir "${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)" \
+	            -docdir "/usr/share/${_oc_pkg_prefix}-qt5/doc" \
+	            -headerdir "${_oc_prefix}/include/$(DEB_HOST_MULTIARCH)/qt5" \
+	            -datadir "${_oc_prefix}/share/qt5" \
+	            -archdatadir "${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/qt5" \
+	            -hostdatadir "${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/qt5" \
+	            -plugindir "${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/qt5/plugins" \
+	            -importdir "${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/qt5/imports" \
+	            -translationdir "${_oc_prefix}/share/qt5/translations" \
+	            -sysconfdir "/etc/xdg" \
+	            -examplesdir "${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/qt5/examples" \
+	            -opensource \
+	            -plugin-sql-mysql \
+	            -plugin-sql-odbc \
+	            -plugin-sql-psql \
+	            -plugin-sql-sqlite \
+	            -no-sql-sqlite2 \
+	            -plugin-sql-tds \
+	            -system-sqlite \
+	            -platform $(platform_arg) \
+	            -system-zlib \
+	            -system-libpng \
+	            -system-libjpeg \
+	            -openssl \
+	            -no-rpath \
+	            -verbose \
+	            -optimized-qmake \
+	            -dbus-linked \
+	            -no-strip \
+	            -no-separate-debug-info \
+	            -qpa xcb \
+	            -xcb \
+	            -glib \
+	            -icu \
+	            -accessibility \
+	            -compile-examples \
+	            -no-directfb \
+	            $(extra_configure_opts) \
+	            $(cpu_opt)
+
+override_dh_auto_test:
+ifeq ($(DEB_HOST_ARCH),$(filter $(DEB_HOST_ARCH),$(testrun_architectures)))
+ifeq (,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
+		xvfb-run -a -s "-screen 0 640x480x24" make check QT_PLUGIN_PATH=$(CURDIR)/plugins LD_LIBRARY_PATH=$(CURDIR)/lib PATH=$(CURDIR)/bin:$(PATH) -k
+endif
+endif
+
+override_dh_auto_clean:
+	[ ! -f Makefile ] || $(MAKE) confclean distclean
+
+	# Extra stuff missed by confclean/distclean
+
+	# Misc. files
+	rm -f \
+	  config.status \
+	  config.tests/.qmake.cache \
+	  examples/dbus/*/Makefile.* \
+	  mkspecs/qconfig.pri \
+	  src/corelib/global/qconfig.* \
+	;
+
+	# Misc. directories
+	rm -rf \
+	  doc-build/ \
+	  doc/html/ \
+	  doc/qch/ \
+	  examples/tools/plugandpaint/plugins/ \
+	  examples/tools/styleplugin/styles/ \
+	  lib/ \
+	  plugins/ \
+	;
+
+	# Leftover dirs
+        # Ubuntu diff: tests enablement related
+	find -depth -type d \( -false \
+	  -o -name debug-shared \
+	  -o -name debug-static \
+	  -o -name \*.gch \
+	  -o -name .moc\* \
+	  -o -name .obj\* \
+	  -o -name .pch \
+	  -o -name pkgconfig \
+	  -o -name .rcc \
+	  -o -name release-shared \
+	  -o -name release-static \
+	  -o -name .uic \) -print \
+        | xargs rm -rf
+
+	# Leftover files and all symlinks
+        # Ubuntu diff: tests enablement related
+	find \( -false \
+	  -o -name \*.a \
+	  -o -name Makefile.Debug \
+	  -o -name Makefile.Release \
+	  -o -name \*.o \
+	  -o -name \*.prl \
+	  -o -name \*.so \
+	  -o -name \*.so.debug \
+	  -o -type l \) -print \
+        | grep -v tests/auto/corelib/plugin/qpluginloader/elftest \
+        | grep -v tests/auto/corelib/io/qdir/types \
+        | grep -v tests/auto/corelib/plugin/qlibrary/library_path/invalid.so \
+        | xargs rm -rf
+
+	# Delete all Makefiles, excluding some from src/3rdparty
+	find $(CURDIR) -name Makefile \
+	  ! -path $(CURDIR)/src/3rdparty/Makefile \
+	  ! -path $(CURDIR)/src/3rdparty/freetype/\* \
+	  ! -path $(CURDIR)/src/3rdparty/zlib/\* \
+	  ! -path $(CURDIR)/src/3rdparty/ptmalloc/Makefile \
+	-print0 | xargs -0 rm -rf
+
+	# Any remaining executables
+        # Ubuntu diff: tests enablement related
+	find $(CURDIR) -type f -perm /u+x,g+x,o+x -exec file -i '{}' \; \
+	| grep -e application/x-executable \
+	| cut -d ':' -f 1 | grep -v tests/auto | xargs rm -f
+
+	# Generated on build
+	rm -vf debian/stamp-makefile-build-tools
+
+	# more leftovers
+	rm -f .device.vars .qmake.vars
+
+ifeq ($(vendor),Ubuntu)
+	rm -rf po
+endif
+
+# override_dh_auto_build-indep:
+# 	dh_auto_build -- docs
+
+xxx_override_dh_auto_build-arch:
+	# Bootstrap corelibs in order to be able to build the helper tools to
+	# regenerate some upstream-provided files.
+	cd $(CURDIR)/src; ../bin/qmake; make sub-corelib
+	# Add here the code to generate the helpers and then the headers.
+	LC_ALL=C.UTF-8 sh debian/generateTLDs.sh
+	# Clean up the compiled code and start again.
+	cd $(CURDIR)/src; make distclean
+	# dbus tests fail in OBS
+	sed -i -e 's@dbus \\@\\@' -e 's@error("QtDBus @warning("QtDBus @' $(CURDIR)/tests/auto/auto.pro
+	# missing qhelpgenerator can come from qttools5-dev-tools.
+	make clean
+	dh_auto_build
+
+override_dh_auto_install-arch:
+	dh_auto_install -Smakefile -- INSTALL_ROOT=$(CURDIR)/debian/tmp/
+
+ifeq ($(DEB_HOST_ARCH_CPU),i386)
+	# Rebuild the necessary libs with SSE2 support.
+	# Create the destination directory.
+	install -d debian/tmp/${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/sse2/
+
+	# corelib needs make clean first to be able to rebuild.
+	cd $(CURDIR)/src/corelib; make clean ; ../../bin/qmake -config sse2; make
+	cp -av lib/libQt5Core.so.* debian/tmp/${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/sse2/
+
+	# gui on turn doesn't needs it, and actually fails if done.
+	cd $(CURDIR)/src/gui; ../../bin/qmake -config sse2; make
+	cp -av lib/libQt5Gui.so.* debian/tmp/${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/sse2/
+endif
+
+	# FIXME: pkgconfig should appear in /usr/lib, despite that we install into /opt/ ???
+	# find: '/usr/src/packages/BUILD/debian/tmp/usr/lib/*/pkgconfig': No such file or directory
+
+	# Fix wrong path in pkgconfig files
+	find $(CURDIR)/debian/tmp/${_oc_prefix}/lib/*/pkgconfig -type f -name '*.pc' \
+		-exec perl -pi -e "s, -L$(CURDIR)/?\S+,,g" {} \;
+
+	# Configuration file for qt5-default package
+	mkdir -p $(CURDIR)/debian/tmp/${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/qtchooser
+	ln -s /${_oc_prefix}/share/qtchooser/qt5-$(DEB_HOST_MULTIARCH).conf $(CURDIR)/debian/tmp/${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/qtchooser/default.conf
+
+	# Remove leftover directories
+	find $(CURDIR)/debian/tmp/${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/qt5 -depth -type d \( -false \
+	  -o -name .moc\* \
+	  -o -name .obj\* \
+	  -o -name .pch \
+	  -o -name .rcc \
+	\) -print0 | xargs -0 rm -rf
+
+	# Remove libtool-like files
+	rm -f debian/tmp/${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/*.la
+
+	# A user of Qt built by a distro doesn't need to find where the plugins
+	# are via CMake, so don't install them.
+	rm -fv debian/tmp/${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/cmake/Qt5*/Q*Plugin.cmake
+
+	# There is also no need to install libQtBootstrap. As it's name indicates it's
+	# only used to bootstrap qt.
+	rm -fv debian/tmp/${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/libQt5Bootstrap*
+	rm -fv debian/tmp/${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/Qt5Bootstrap.pc
+
+	# Remove bogus exec bits from some data files in mkspecs, docs, examples
+	find debian/tmp/${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)/qt5/ \
+	     debian/tmp/usr/share/${_oc_pkg_prefix}-qt5/ \
+		-perm /u+x,g+x,o+x -type f \
+		-regex '.*\.\(app\|conf\|cpp\|h\|js\|php\|png\|pro\|xml\|xsl\)$$' \
+		-exec chmod a-x {} \;
+
+# override_dh_auto_install-indep:
+#	 dh_auto_build -- INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs
+
+override_dh_install:
+	# Now flush all the .install-* files as .install files.
+	set -e; for pkg in $(pkgs_with_common); do \
+		cat debian/$$pkg.install-common >> debian/$$pkg.install ; \
+	done
+
+	set -e; for pkg in $(pkgs_with_arch); do \
+		cat debian/$$pkg.install-$(DEB_HOST_ARCH_CPU) >> debian/$$pkg.install ; \
+	done
+
+	set -e; for pkg in $(pkgs_with_os); do \
+		cat debian/$$pkg.install-$(DEB_HOST_ARCH_OS) >> debian/$$pkg.install ; \
+	done
+
+	ls -la debian/lintian-overrides
+	for pkg in $(pkgs_oc_pkg_prefix); do \
+		( cd debian; for f in $$pkg.*; do test -f $$f && cp $$f ${_oc_pkg_prefix}-$$f ; done ); \
+		for tag in $(lintian_overrides); do \
+		  echo "${_oc_pkg_prefix}-$$pkg: $$tag" >>  debian/lintian-overrides; \
+		  echo "${_oc_pkg_prefix}-$$pkg: $$tag" >>  debian/${_oc_pkg_prefix}-$$pkg.lintian-overrides; \
+		done; \
+	done
+	ls -la debian/lintian-overrides
+
+	# Call dh_install normally. It will process .install, .install.ARCH
+	# and/or .install.OS files.
+	dh_install --fail-missing
+
+# override_dh_installdocs:
+# 	dh_installdocs --all LGPL_EXCEPTION.txt
+
+xxx_override_dh_lintian:
+	# debian.source.lintian-overrides does not work at all.
+	# All these tricks here do not seem to have effect ...
+	echo 'DEBUILD_LINTIAN_OPTS="-i -I --tags debian-changelog-line-too-long --show-overrides"' > /home/abuild/.devscripts
+	mkdir -p /home/abuild/.config/dpkg
+	echo 'nocheck = yes' > /home/abuild/.config/dpkg/buildpackage.conf
+	echo 'show-overrides = yes' > /home/abuild/.lintianrc
+	echo 'verbose = yes' >> /home/abuild/.lintianrc
+	dh_lintian
+
+override_dh_installchangelogs:
+	if [ -f $(upstream_changes) ] ; then \
+		dh_installchangelogs $(upstream_changes); \
+	else \
+		dh_installchangelogs; \
+	fi
+
+override_dh_strip:
+	dh_strip -p${_oc_pkg_prefix}-qtbase5-examples --dbg-package=${_oc_pkg_prefix}-qtbase5-examples-dbg
+	dh_strip -p${_oc_pkg_prefix}-qtbase5-dev-tools --dbg-package=${_oc_pkg_prefix}-qtbase5-dev-tools-dbg
+	dh_strip -p${_oc_pkg_prefix}-qt5-qmake --dbg-package=${_oc_pkg_prefix}-qtbase5-dev-tools-dbg
+	dh_strip --remaining-packages --dbg-package=${_oc_pkg_prefix}-qtbase5-dbg
+
+override_dh_makeshlibs:
+	# Don't uncomment until rid of -gles packages
+	#dh_makeshlibs -V -p${_oc_pkg_prefix}-libqt5gui5 -XlibQt5EglDeviceIntegration.so -X libQt5XcbQpa.so
+	#dh_makeshlibs -V --remaining-packages
+	dh_makeshlibs -p${_oc_pkg_prefix}-libqt5gui5 -XlibQt5EglDeviceIntegration.so -X libQt5XcbQpa.so
+	dh_makeshlibs --remaining-packages
+
+override_dh_clean:
+	dh_clean
+
+	# Don't forget to remove the .install files we generated.
+	for pkg in $(pkgs_with_common); do \
+		rm -f debian/$$pkg.install ; \
+	done
+
+	for pkg in $(pkgs_with_arch); do \
+		rm -f debian/$$pkg.install ; \
+	done
+
+	for pkg in $(pkgs_with_os); do \
+		rm -f debian/$$pkg.install ; \
+	done
+
+	for pkg in $(pkgs_oc_pkg_prefix); do \
+		rm -f debian/${_oc_pkg_prefix}-$$pkg.* ; \
+	done
+
+override_dh_shlibdeps:
+	dh_shlibdeps -O--parallel -l"${_oc_prefix}/lib/$(DEB_HOST_MULTIARCH)"

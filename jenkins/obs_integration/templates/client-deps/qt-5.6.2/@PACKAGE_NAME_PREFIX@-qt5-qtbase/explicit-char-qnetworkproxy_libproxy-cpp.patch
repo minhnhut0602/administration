@@ -1,0 +1,13 @@
+needed for old compiler on Debian_7.0, hopefully harmless for all others.
+
+--- src/network/kernel/qnetworkproxy_libproxy.cpp.orig  2017-02-19 15:42:17.740143608 +0000
++++ src/network/kernel/qnetworkproxy_libproxy.cpp       2017-02-19 15:58:22.190386918 +0000
+@@ -74,7 +74,7 @@
+     QList<QUrl> ret;
+ 
+     if (factory) {
+-        char **proxies = px_proxy_factory_get_proxies(factory, url.toEncoded());
++        char **proxies = px_proxy_factory_get_proxies(factory, url.toEncoded().data());
+         if (proxies) {
+             for (int i = 0; proxies[i]; i++) {
+                 ret.append(QUrl::fromEncoded(proxies[i]));

@@ -1,0 +1,2 @@
+${_oc_prefix}/lib/*/libQt5Network.so.*
+${_oc_prefix}/lib/*/qt5/plugins/bearer/libqgenericbearer.so

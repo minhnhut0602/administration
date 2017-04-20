@@ -1,0 +1,17 @@
+${_oc_prefix}/include/*/qt5/QtCore/5.*/*
+${_oc_prefix}/include/*/qt5/QtDBus/5.*/*
+${_oc_prefix}/include/*/qt5/QtGui/5.*/*
+${_oc_prefix}/include/*/qt5/QtNetwork/5.*/*
+${_oc_prefix}/include/*/qt5/QtOpenGL/5.*/*
+${_oc_prefix}/include/*/qt5/QtPlatformSupport/5.*/*
+${_oc_prefix}/include/*/qt5/QtPlatformSupport/QtPlatformSupport
+${_oc_prefix}/include/*/qt5/QtPlatformSupport/QtPlatformSupportDepends
+${_oc_prefix}/include/*/qt5/QtPlatformSupport/QtPlatformSupportVersion
+${_oc_prefix}/include/*/qt5/QtPlatformSupport/qtplatformsupportversion.h
+${_oc_prefix}/include/*/qt5/QtPrintSupport/5.*/*
+${_oc_prefix}/include/*/qt5/QtSql/5.*/*
+${_oc_prefix}/include/*/qt5/QtTest/5.*/*
+${_oc_prefix}/include/*/qt5/QtWidgets/5.*/*
+${_oc_prefix}/include/*/qt5/QtXml/5.*/*
+${_oc_prefix}/lib/*/libQt5PlatformSupport.a
+${_oc_prefix}/lib/*/libQt5PlatformSupport.prl

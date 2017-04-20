@@ -1,0 +1,458 @@
+Source: @PACKAGE_NAME_PREFIX@-qt5-qtbase
+Section: libs
+Priority: optional
+Maintainer: Juergen Weigert <jw@owncloud.com>
+Build-Depends: debhelper (>= 9), lintian-obs-permissive | lintian,
+               dpkg-dev (>= 1.16.1),
+               freetds-dev, gdb,
+               libasound2-dev [linux-any],
+               libatspi2.0-dev,
+               libcups2-dev,
+               libdbus-1-dev,
+               libfontconfig1-dev,
+               libfreetype6-dev,
+               libgbm-dev [linux-any kfreebsd-any],
+               libgl1-mesa-dev | libgl-dev,
+               libgles2-mesa-dev | libgles2-dev,
+               libglib2.0-dev,
+               libglu1-mesa-dev | libglu-dev,
+               libgtk2.0-dev,
+               libicu-dev,
+               libjpeg-dev,
+               libmtdev-dev [linux-any],
+               default-libmysqlclient-dev | libmysqlclient-dev,
+               libpcre3-dev,
+               libpng-dev,
+               libpq-dev,
+               libproxy-dev,
+               libpulse-dev,
+               libsqlite3-dev,
+               libssl-dev,
+               libudev-dev [linux-any],
+               libx11-dev,
+               libx11-xcb-dev,
+               libxcb-icccm4-dev,
+               libxcb-image0-dev,
+               libxcb-keysyms1-dev,
+               libxcb-randr0-dev,
+               libxcb-render-util0-dev,
+               libxcb-render0-dev,
+               libxcb-shape0-dev,
+               libxcb-shm0-dev,
+               libxcb-xfixes0-dev,
+               libxcb-xinerama0-dev,
+               libxcb1-dev,
+               libxext-dev,
+               libxi-dev,
+               libxrender-dev,
+               unixodbc-dev,
+               xvfb, xauth,
+               publicsuffix,
+               zlib1g-dev,
+               libgstreamer-plugins-base1.0-dev | libgstreamer-plugins-base0.10-dev,
+               libgstreamer1.0-dev | libgstreamer0.10-dev,
+               libxcb-sync-dev | libxcb-sync0-dev,
+               libxcb-xkb-dev | bash,
+               libxkbcommon-dev | bash,
+               libxkbcommon-x11-dev | bash
+# Build-Conflicts: libmariadbclient-dev
+Standards-Version: 3.9.8
+Homepage: http://qt-project.org/
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5core5a
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Provides: qtbase-abi-5-6-1
+Depends: ${misc:Depends}, ${shlibs:Depends}
+# TODO: Do we need to package qttranslations?!
+# Recommends: @PACKAGE_NAME_PREFIX@-qttranslations5-l10n
+Suggests: libthai0
+# Breaks: libqt5core5 (<< 5.2.0+dfsg~), libqt5scintilla2-12v5 (<< 2.9.2+dfsg-2~)
+# Replaces: libqt5core5 (<< 5.2.0+dfsg~)
+Description: Qt 5 core module
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ The QtCore module contains core non-GUI functionality.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5gui5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: fontconfig, ${misc:Depends}, ${shlibs:Depends}
+Recommends: @PACKAGE_NAME_PREFIX@-libqt5svg5, mesa-utils
+# Breaks: libqt5egldeviceintegration5 (<< 5.6.0~beta+dfsg-5~),
+#         libqt5xcbqpa5 (<< 5.6.0~beta+dfsg-5~)
+# Replaces: libqt5egldeviceintegration5 (<< 5.6.0~beta+dfsg-5~),
+#           libqt5xcbqpa5 (<< 5.6.0~beta+dfsg-5~)
+# TODO: Do we need to package qt5-image-formats-plugins, qtwayland5 and add them to Suggests:?!
+Suggests: @PACKAGE_NAME_PREFIX@-libqt5libqgtk2
+Description: Qt 5 GUI module
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ The QtGui module extends QtCore with GUI functionality.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5libqgtk2
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: @PACKAGE_NAME_PREFIX@-libqt5gui5 (= ${binary:Version}), ${misc:Depends}, ${shlibs:Depends}
+# Breaks: libqt5gui5 (<< 5.4.1+dfsg-3~)
+# Replaces: libqt5gui5 (<< 5.4.1+dfsg-3~)
+Description: Qt 5 GTK2 platform theme
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package provides the GTK2 platform theme, which makes Qt use
+ native icon themes, fonts, and dialogs on GTK-based environments.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5network5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 network module
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ The QtNetwork module offers classes that allow you to write TCP/IP clients and
+ servers. It provides classes to make network programming easier and portable.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5opengl5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 OpenGL module
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ The QtOpenGL module offers classes that make it easy to use OpenGL in Qt
+ applications.
+ .
+ OpenGL is a standard API for rendering 3D graphics. OpenGL only deals with 3D
+ rendering and provides little or no support for GUI programming issues.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5sql5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Recommends: @PACKAGE_NAME_PREFIX@-libqt5sql5-sqlite | @PACKAGE_NAME_PREFIX@-libqt5sql5-mysql | @PACKAGE_NAME_PREFIX@-libqt5sql5-odbc | @PACKAGE_NAME_PREFIX@-libqt5sql5-psql
+Description: Qt 5 SQL module
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ The QtSql module helps you provide seamless database integration to your Qt
+ applications.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5sql5-mysql
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 MySQL database driver
+ This package contains the MySQL plugin for Qt 5.
+ .
+ Install it if you intend to use or write Qt programs that are to access a
+ MySQL DB.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5sql5-odbc
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 ODBC database driver
+ This package contains the ODBC plugin for Qt 5.
+ .
+ Install it if you intend to use or write Qt programs that are to access an
+ ODBC DB.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5sql5-psql
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 PostgreSQL database driver
+ This package contains the PostgreSQL plugin for Qt 5.
+ .
+ Install it if you intend to use or write Qt programs that are to access a
+ PostgreSQL DB.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5sql5-sqlite
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 SQLite 3 database driver
+ This package contains the SQLite 3 plugin for Qt 5.
+ .
+ Install it if you intend to use or write Qt programs that are to access an
+ SQLite 3 DB.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5sql5-tds
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 FreeTDS database driver
+ This package contains the FreeTDS plugin for Qt 5.
+ .
+ Install it if you intend to use or write Qt programs that are to access a
+ MS SQL or Sybase SQL server.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5xml5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 XML module
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ The QtXml module provides a stream reader and writer for XML documents,
+ and C++ implementations of SAX and DOM.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5dbus5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 D-Bus module
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ The QtDBus module is a Unix-only library that you can use to make Inter-Process
+ Communication using the D-Bus protocol.
+ .
+ Applications using the QtDBus module can provide services to other, remote
+ applications by exporting objects, as well as use services exported by those
+ applications by placing calls and accessing properties.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5test5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 test module
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ The QtTest module provides classes for unit testing Qt applications and
+ libraries.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5concurrent5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 concurrent module
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ The QtConcurrent module contains functionality to support concurrent execution
+ of program code.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5widgets5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 widgets module
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ The QtWidgets module extends QtGui with C++ widget functionality.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5printsupport5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Recommends: libcups2
+Description: Qt 5 print support module
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ The QtPrintSupport module provides classes to make printing easier and
+ portable.
+
+Package: @PACKAGE_NAME_PREFIX@-qtbase5-dev
+Architecture: any
+Multi-Arch: same
+Section: libdevel
+Depends: libgl1-mesa-dev [!armel !armhf] | libgl-dev [!armel !armhf],
+         libgles2-mesa-dev | libgles2-dev,
+         libglu1-mesa-dev [!armel !armhf] | libglu-dev [!armel !armhf],
+         @PACKAGE_NAME_PREFIX@-libqt5concurrent5 (= ${binary:Version}),
+         @PACKAGE_NAME_PREFIX@-libqt5core5a (= ${binary:Version}),
+         @PACKAGE_NAME_PREFIX@-libqt5dbus5 (= ${binary:Version}),
+         @PACKAGE_NAME_PREFIX@-libqt5gui5 (= ${binary:Version}),
+         @PACKAGE_NAME_PREFIX@-libqt5network5 (= ${binary:Version}),
+         @PACKAGE_NAME_PREFIX@-libqt5printsupport5 (= ${binary:Version}),
+         @PACKAGE_NAME_PREFIX@-libqt5sql5 (= ${binary:Version}),
+         @PACKAGE_NAME_PREFIX@-libqt5test5 (= ${binary:Version}),
+         @PACKAGE_NAME_PREFIX@-libqt5widgets5 (= ${binary:Version}),
+         @PACKAGE_NAME_PREFIX@-libqt5xml5 (= ${binary:Version}),
+         libxext-dev,
+         @PACKAGE_NAME_PREFIX@-qt5-qmake (= ${binary:Version}),
+         @PACKAGE_NAME_PREFIX@-qtbase5-dev-tools (= ${binary:Version}),
+         ${misc:Depends}
+Recommends: @PACKAGE_NAME_PREFIX@-libqt5opengl5-dev (= ${binary:Version})
+Suggests: libegl1-mesa-dev,
+          libgl1-mesa-dev,
+          default-libmysqlclient-dev | libmysqlclient-dev,
+          libpq-dev,
+          libsqlite3-dev,
+          unixodbc-dev
+Description: Qt 5 base development files
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package contains the header development files used for building Qt 5
+ applications.
+ .
+ If you are interested in packaging Qt 5 stuff please take a look at
+ http://pkg-kde.alioth.debian.org/packagingqtbasedstuff.html
+
+Package: @PACKAGE_NAME_PREFIX@-qtbase5-private-dev
+Architecture: any
+Multi-Arch: same
+Section: libdevel
+Depends: libinput-dev [linux-any],
+         libxkbcommon-dev,
+         @PACKAGE_NAME_PREFIX@-qtbase5-dev (= ${binary:Version}),
+         ${misc:Depends}
+# Breaks: qtbase5-dev (<< 5.4.0+dfsg-6~)
+# Replaces: qtbase5-dev (<< 5.4.0+dfsg-6~)
+Description: Qt 5 base private development files
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package contains the private header development files for building some
+ Qt 5 applications like Qt Creator QML Designer plugin.
+ .
+ Use at your own risk.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5opengl5-dev
+Architecture: any
+Multi-Arch: same
+Section: libdevel
+Depends: @PACKAGE_NAME_PREFIX@-libqt5opengl5 (= ${binary:Version}),
+         @PACKAGE_NAME_PREFIX@-qtbase5-dev (= ${binary:Version}),
+         ${misc:Depends}
+# Breaks: qtbase5-dev (<< 5.4.0+dfsg-6~)
+# Replaces: qtbase5-dev (<< 5.4.0+dfsg-6~)
+Description: Qt 5 OpenGL library development files
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package contains the development files needed to build Qt 5 applications
+ using QtOpenGL library.
+
+Package: @PACKAGE_NAME_PREFIX@-qtbase5-dev-tools
+Architecture: any
+Multi-Arch: foreign
+Section: devel
+Depends: ${misc:Depends},
+         ${perl:Depends},
+         ${shlibs:Depends}
+Description: Qt 5 base development programs
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package contains the development programs used for building Qt 5
+ applications, such as moc, qdbuscpp2xml, qdbusxml2cpp, rcc,
+ syncqt and uic.
+
+Package: @PACKAGE_NAME_PREFIX@-qt5-qmake
+Architecture: any
+Multi-Arch: same
+Section: devel
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 qmake Makefile generator tool
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package contains the Qt 5 qmake, a tool that helps simplify
+ the build process for development project across different platforms.
+ qmake automates the generation of Makefiles so that only a few lines of
+ information are needed to create each Makefile. qmake can be used for any
+ software project, whether it is written using Qt or not.
+ .
+ Qt 5 qmake requires a platform and compiler description file which contains
+ many default values used to generate appropriate Makefiles.
+ .
+ This package contains also these platform specifications.
+
+Package: @PACKAGE_NAME_PREFIX@-qtbase5-examples
+Architecture: any
+Multi-Arch: foreign
+Section: x11
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 base examples
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package contains Qt base 5 examples.
+
+Package: @PACKAGE_NAME_PREFIX@-qtbase5-dbg
+Priority: extra
+Architecture: any
+Multi-Arch: same
+Section: debug
+Depends: @PACKAGE_NAME_PREFIX@-libqt5core5a (= ${binary:Version}), ${misc:Depends}
+Description: Qt 5 base library debugging symbols
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package contains the debugging symbols for the Qt 5 base libraries.
+
+Package: @PACKAGE_NAME_PREFIX@-qtbase5-dev-tools-dbg
+Priority: extra
+Architecture: any
+Multi-Arch: same
+Section: debug
+Depends: @PACKAGE_NAME_PREFIX@-qt5-qmake (= ${binary:Version}),
+         @PACKAGE_NAME_PREFIX@-qtbase5-dev-tools (= ${binary:Version}),
+         ${misc:Depends}
+Recommends: @PACKAGE_NAME_PREFIX@-qtbase5-dbg
+Description: Qt 5 base binaries debugging symbols
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package contains the debugging symbols for the Qt 5 binaries.
+
+Package: @PACKAGE_NAME_PREFIX@-qtbase5-examples-dbg
+Priority: extra
+Architecture: any
+Section: debug
+Depends: @PACKAGE_NAME_PREFIX@-qtbase5-examples (= ${binary:Version}), ${misc:Depends}
+Recommends: @PACKAGE_NAME_PREFIX@-qtbase5-dbg
+Description: Qt 5 base examples debugging symbols
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package contains the debugging symbols for the Qt 5 examples.
+
+Package: @PACKAGE_NAME_PREFIX@-qt5-default
+Architecture: any
+Multi-Arch: same
+Section: libdevel
+Depends: @PACKAGE_NAME_PREFIX@-qtbase5-dev, ${misc:Depends}
+Conflicts: qt4-default, qt5-default
+Provides: qt-default
+Suggests: qt5-qmake, @PACKAGE_NAME_PREFIX@-qtbase5-dev-tools
+Description: Qt 5 development defaults package
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package sets Qt 5 to be the default Qt version to be used when
+ using development binaries like qmake.
+ .
+ This package should not be used for building Debian packages. Take a
+ look at http://pkg-kde.alioth.debian.org/packagingqtbasedstuff.html for
+ more information.
+
