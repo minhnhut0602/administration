@@ -69,7 +69,7 @@ fi
 
 if [ -n "$outfile" ]; then
   echo "TARNAME=\"$newname.$outputsuffix\"" > $outfile
-  echo "TARTOPDIR=\"$newname\"" > $outfile
+  echo "TARTOPDIR=\"$newname\"" >> $outfile
   echo "VERSION=\"$version\"" >> $outfile
   echo "BASEVERSION=\"$baseversion\"" >> $outfile
   echo "PRERELEASE=\"$prerelease\"" >> $outfile
