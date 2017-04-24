@@ -1,0 +1,11 @@
+--- qtwebkit/Tools/qmake/mkspecs/features/unix/default_post.prf	2012/12/06 19:59:43	1.1
++++ qtwebkit/Tools/qmake/mkspecs/features/unix/default_post.prf	2012/12/06 20:00:17
+@@ -59,7 +59,7 @@ linux-*g++* {
+     }
+ }
+ 
+-contains(TEMPLATE, app): CONFIG += rpath
++#contains(TEMPLATE, app): CONFIG += rpath
+ 
+ CONFIG(debug, debug|release)|force_debug_info {
+     # Make ld not cache the symbol tables of input files in memory to avoid memory exhaustion during the linking phase.

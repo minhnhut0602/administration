@@ -62,10 +62,10 @@ Url:            http://qt.digia.com
 %define tar_version qtbase-opensource-src-%{real_version}
 Source:         %{tar_version}.tar.xz
 # to get mtime of file:
-Source1:        qt5-qtbase.changes
-Source2:        macros.qt5
+Source1:        @PACKAGE_NAME_PREFIX@-qt5-qtbase.changes
+Source2:        macros.@PACKAGE_NAME_PREFIX@-qt5
 Source3:        baselibs.conf
-Source99:       qt5-qtbase-rpmlintrc
+Source99:       @PACKAGE_NAME_PREFIX@-qt5-qtbase-rpmlintrc
 # patches 0-1000 are openSUSE and/or non-upstream(able) patches #
 # PATCH-FIX-SUSE libqt5-Fix-Gujarati-font.patch bnc#878292 fix broken Gujarati font rendering
 Patch3:         libqt5-Fix-Gujarati-font.patch

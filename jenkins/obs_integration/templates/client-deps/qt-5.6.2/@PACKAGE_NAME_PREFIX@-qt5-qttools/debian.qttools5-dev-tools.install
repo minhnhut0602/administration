@@ -1,0 +1,33 @@
+@OC_QT_ROOT@/lib/*/cmake/Qt5LinguistTools/Qt5LinguistToolsConfig.cmake
+@OC_QT_ROOT@/lib/*/cmake/Qt5LinguistTools/Qt5LinguistToolsConfigVersion.cmake
+@OC_QT_ROOT@/lib/*/cmake/Qt5LinguistTools/Qt5LinguistToolsMacros.cmake
+@OC_QT_ROOT@/lib/*/qt5/bin/assistant
+@OC_QT_ROOT@/lib/*/qt5/bin/designer
+@OC_QT_ROOT@/lib/*/qt5/bin/lconvert
+@OC_QT_ROOT@/lib/*/qt5/bin/linguist
+@OC_QT_ROOT@/lib/*/qt5/bin/lrelease
+@OC_QT_ROOT@/lib/*/qt5/bin/lupdate
+@OC_QT_ROOT@/lib/*/qt5/bin/pixeltool
+@OC_QT_ROOT@/lib/*/qt5/bin/qcollectiongenerator
+@OC_QT_ROOT@/lib/*/qt5/bin/qdbusviewer
+@OC_QT_ROOT@/lib/*/qt5/bin/qdoc
+@OC_QT_ROOT@/lib/*/qt5/bin/qhelpconverter
+@OC_QT_ROOT@/lib/*/qt5/bin/qhelpgenerator
+@OC_QT_ROOT@/lib/*/qt5/bin/qtdiag
+@OC_QT_ROOT@/lib/*/qt5/bin/qtpaths
+@OC_QT_ROOT@/lib/*/qt5/bin/qtplugininfo
+# @OC_QT_ROOT@/lib/*/qt5/plugins/designer/libqquickwidget.so
+# @OC_QT_ROOT@/lib/*/qt5/plugins/designer/libqwebview.so
+@OC_QT_ROOT@/share/qt5/phrasebooks/danish.qph
+@OC_QT_ROOT@/share/qt5/phrasebooks/dutch.qph
+@OC_QT_ROOT@/share/qt5/phrasebooks/finnish.qph
+@OC_QT_ROOT@/share/qt5/phrasebooks/french.qph
+@OC_QT_ROOT@/share/qt5/phrasebooks/german.qph
+@OC_QT_ROOT@/share/qt5/phrasebooks/hungarian.qph
+@OC_QT_ROOT@/share/qt5/phrasebooks/italian.qph
+@OC_QT_ROOT@/share/qt5/phrasebooks/japanese.qph
+@OC_QT_ROOT@/share/qt5/phrasebooks/norwegian.qph
+@OC_QT_ROOT@/share/qt5/phrasebooks/polish.qph
+@OC_QT_ROOT@/share/qt5/phrasebooks/russian.qph
+@OC_QT_ROOT@/share/qt5/phrasebooks/spanish.qph
+@OC_QT_ROOT@/share/qt5/phrasebooks/swedish.qph

@@ -1,0 +1,80 @@
+@PACKAGE_NAME_PREFIX@-qt5keychain (0.7.0-1) stable; urgency=medium
+
+  * templatizer Makefile added to allow prjconf variables with debian.*.in meta files.
+
+ -- Jürgen Weigert <jw@owncloud.com>  Sat, 11 Feb 2017 19:21:18 +0100
+
+qt5keychain (0.7.0-0) stable; urgency=medium
+
+  * Update to upstream version 0.7.0
+  * Increment SO version, as the library is no longer binary compatible
+
+ -- Daniel Molkentin <danimo@owncloud.com>  Mon, 23 May 2016 21:53:03 +0200
+
+qt5keychain (0.6.2-1) stable; urgency=medium
+
+  * Update to upstream version 0.6.2
+  * KWallet: Fixes a crash when storing passwords, seen on Debian/KDE4
+
+ -- Daniel Molkentin <danimo@owncloud.com>  Thu, 21 Apr 2016 12:56:29 +0200
+
+qt5keychain (0.6.1-1) stable; urgency=medium
+
+  * Update to upstream release 0.6.1
+
+ -- Daniel Molkentin <danimo@owncloud.com>  Mon, 04 Apr 2016 10:02:10 +0200
+
+qt5keychain (0.5-1) stable; urgency=low
+
+  * Added DEBTRANSFORM-RELEASE: 1
+    https://github.com/owncloud/client/issues/4178
+
+ -- Jürgen Weigert <jw@owncloud.com> Tue, 01 Dec 2015 19:49:42 +0100
+
+qt5keychain (0.5-0) stable; urgency=low
+
+   * Added support for KWallet5 (KDE5/KF)
+
+ -- Klaas Freitag <freitag@owncloud.com>  Fri, 22 May 2015 19:10:15 +0100
+
+qt5keychain (0.4-2) stable; urgency=low
+
+  * fixed https://github.com/owncloud/client/issues/2471
+    debian.rules still assumed a lib* prefix on the *-dev package. 
+    Adapted debian.rules to match the new name. (again)
+
+ -- Jürgen Weigert <jw@owncloud.com>  Mon, 26 Jan 2015 19:10:15 +0100
+
+qt5keychain (0.4) stable; urgency=medium
+
+  * Detect GNOME keychain daemons presence using official API
+  * Fix kdewallet integration
+  * Don't request a new kwallet if there already is one
+
+ -- Daniel Molkentin <danimo@owncloud.com>  Tue, 02 Sep 2014 15:28:09 +0200
+
+qt5keychain (0.3-1) stable; urgency=low
+
+  * Rename libqtkeychain-dev to qtkeychain-dev
+  * Adapted debian.rules to match the new name.
+
+ -- Jürgen Weigert <jw@owncloud.com>  Tue, 16 Jul 2014 09:43:46 -0200
+
+qt5keychain (0.3-1) stable; urgency=low
+
+  * Source: name needs to be qt5keychain in both
+    debian.control and qt5keychain.dsc
+
+ -- Jürgen Weigert <jw@owncloud.com>  Mon, Jul 14 2014 18:00:47 -0200
+
+qt5keychain (0.3-1) stable; urgency=low
+
+  * Rename libqt5keychain-dev to qt5keychain-dev
+
+ -- Jürgen Weigert <jw@owncloud.com>  Tue, Jul  1 2014 16:53:29 -0200
+
+libqt5keychain (0.3-0) stable; urgency=low
+
+  * Introduce libqt5keychain
+
+ -- Daniel Molkentin <danimo@owncloud.com>  Fri, 14 Mar 2014 23:40:01 +0100

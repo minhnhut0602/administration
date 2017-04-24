@@ -10,9 +10,9 @@ Release:        0
 Summary:        oc filesystem and environment
 License:        GPL-2.0+
 Group:          Development/Libraries
-Source1:        macros.oc
-Source4:        oc-find-requires.sh
-Source5:        oc-find-provides.sh
+Source1:        macros.@PACKAGE_NAME_PREFIX@
+Source4:        @PACKAGE_NAME_PREFIX@-find-requires.sh
+Source5:        @PACKAGE_NAME_PREFIX@-find-provides.sh
 Requires:       rpm
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 #!BuildIgnore: post-build-checks
@@ -29,11 +29,11 @@ environment for all oc branded packages.
 mkdir -p %{buildroot}
 
 mkdir -p %{buildroot}%{_sysconfdir}/rpm
-install -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/rpm/macros.%{_oc_pkg_prefix}
+install -m 644 %{SOURCE1} %{buildroot}%{_sysconfdir}/rpm/macros.@PACKAGE_NAME_PREFIX@
 
 mkdir -p %{buildroot}%{_libexecdir}/rpm
-install -m 0755 %{SOURCE4} %{buildroot}%{_libexecdir}/rpm/%{_oc_pkg_prefix}-find-requires.sh
-install -m 0755 %{SOURCE5} %{buildroot}%{_libexecdir}/rpm/%{_oc_pkg_prefix}-find-provides.sh
+install -m 0755 %{SOURCE4} %{buildroot}%{_libexecdir}/rpm/@PACKAGE_NAME_PREFIX@-find-requires.sh
+install -m 0755 %{SOURCE5} %{buildroot}%{_libexecdir}/rpm/@PACKAGE_NAME_PREFIX@-find-provides.sh
 
 mkdir -p %{buildroot}%{_oc_prefix}
 mkdir %{buildroot}%{_oc_bindir}
@@ -52,15 +52,16 @@ dirparts () {
 	done | tac
 }
 
-dirparts >  files.list '%dir ' /opt/@VENDOR@/@APPLICATION_SHORTNAME@
+# This can't be here, it must go to the client packages!
+# dirparts >  files.list '%dir ' @CLIENT_ROOT@
 dirparts >> files.list '%dir ' %{_oc_prefix}
 
 
 %files -f files.list
 %defattr(-,root,root,-)
-%config %{_sysconfdir}/rpm/macros.%{_oc_pkg_prefix}
+%config %{_sysconfdir}/rpm/macros.@PACKAGE_NAME_PREFIX@
 # %config %{_sysconfdir}/rpmlint/oc-rpmlint.config
-%{_libexecdir}/rpm/%{_oc_pkg_prefix}-*
+%{_libexecdir}/rpm/@PACKAGE_NAME_PREFIX@-*
 
 %dir %{_oc_bindir}
 %dir %{_oc_includedir}

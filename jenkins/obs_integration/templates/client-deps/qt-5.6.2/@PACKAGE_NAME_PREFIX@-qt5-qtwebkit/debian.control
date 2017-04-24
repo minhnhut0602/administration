@@ -1,0 +1,72 @@
+Source: @PACKAGE_NAME_PREFIX@-qt5-qtwebkit
+Priority: optional
+Maintainer: Juergen Weigert <jw@owncloud.com>
+Build-Depends: debhelper (>= 9.0.0), lintian-obs-permissive,
+               flex, libpng-dev,
+               bison,
+               gperf,
+               python-minimal,
+               python2.7,
+               ruby,
+               libicu-dev,
+               libsqlite3-dev,
+               libxml2-dev,
+               mesa-common-dev,
+               libgl1-mesa-dev [!armel !armhf] | libgl-dev [!armel !armhf],
+               libgles2-mesa-dev [armel armhf] | libgles2-dev [armel armhf],
+               libglib2.0-dev,
+               libglu1-mesa-dev [!armel !armhf] | libglu-dev [!armel !armhf],
+               libxrender-dev,
+               libxslt1-dev,
+               @PACKAGE_NAME_PREFIX@-qt5-default,
+               @PACKAGE_NAME_PREFIX@-qtbase5-private-dev,
+               pkg-config,
+               pkg-kde-tools (>= 0.6.4),
+               chrpath,
+               libjpeg-dev,
+               libfontconfig1-dev
+Standards-Version: 3.9.8
+Section: libs
+Homepage: http://trac.webkit.org/wiki/QtWebKit
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5webkit5-dev
+Section: libdevel
+Architecture: any
+Pre-Depends: dpkg (>= 1.15.6~), ${misc:Pre-Depends}
+Depends: @PACKAGE_NAME_PREFIX@-qtbase5-dev (>= 5),
+         @PACKAGE_NAME_PREFIX@-libqt5webkit5 (= ${binary:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends},
+         libgl1-mesa-dev [!armel !armhf] | libgl-dev [!armel !armhf],
+         libgles2-mesa-dev [armel armhf] | libgles2-dev [armel armhf],
+         @PACKAGE_NAME_PREFIX@-libqt5opengl5-dev,
+         libxslt1-dev
+#         libgstreamer-plugins-base0.10-dev,
+#         @PACKAGE_NAME_PREFIX@-qtlocation5-dev,
+#         @PACKAGE_NAME_PREFIX@-qtsensors5-dev,
+Description: Web content engine library for Qt - development files
+ QtWebKit provides a Web browser engine that makes it easy to embed content
+ from the World Wide Web into your Qt application.
+ .
+ This package contains the development files needed to build Qt 4 applications
+ using QtWebKit library.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5webkit5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: dpkg (>= 1.15.6~), ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Web content engine library for Qt
+ QtWebKit provides a Web browser engine that makes it easy to embed content
+ from the World Wide Web into your Qt application.
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5webkit5-dbg
+Priority: extra
+Architecture: any
+Section: debug
+Depends: @PACKAGE_NAME_PREFIX@-libqt5webkit5 (= ${binary:Version}), ${misc:Depends}
+Description: Web content engine library for Qt - debugging symbols
+ QtWebKit provides a Web browser engine that makes it easy to embed content
+ from the World Wide Web into your Qt application.
+ .
+ This package contains the debugging symbols for the Qt WebKit library.

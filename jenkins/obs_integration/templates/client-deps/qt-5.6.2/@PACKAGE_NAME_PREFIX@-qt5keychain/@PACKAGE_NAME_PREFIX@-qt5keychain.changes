@@ -1,0 +1,171 @@
+-------------------------------------------------------------------
+Thu Aug 18 04:35:44 UTC 2016 - crodriguez@owncloud.com
+
+- Package no longer conflicts with libqt5keychain0.
+ fixes: https://github.com/owncloud/enterprise/issues/1399
+
+-------------------------------------------------------------------
+Tue Jul 12 12:54:47 UTC 2016 - jw@owncloud.com
+
+- https://github.com/owncloud/enterprise/issues/1399
+  conflict and obsolete both, opt- and non-opt libqt5keychain0
+- Removed file conflicts, so that the obsoletes is not strictly needed.
+
+-------------------------------------------------------------------
+Mon May 23 19:46:34 UTC 2016 - danimo@owncloud.com
+
+- Update to version 0.7.0
+- Bumped SO version 
+
+-------------------------------------------------------------------
+Thu Apr 21 10:56:17 UTC 2016 - danimo@owncloud.com
+
+- Update to upstream version 0.6.2
+- KWallet: Fixes a crash when storing passwords, seen on Debian/KDE4
+
+-------------------------------------------------------------------
+Mon Apr  4 07:59:37 UTC 2016 - danimo@owncloud.com
+
+- Update to upstream version 0.6.1
+- Added support for the Windows Credential Store
+- Fix KWallet regression in 0.6.0
+
+-------------------------------------------------------------------
+Fri May 22 09:08:13 UTC 2015 - freitag@opensuse.org
+
+- Update to upstream version 0.5.0
+- Added support for KWallet5 (KDE5/KF)
+
+-------------------------------------------------------------------
+Fri Feb  6 17:54:18 UTC 2015 - ecsos@opensuse.org
+
+- fix build error Illegal char ')'
+
+-------------------------------------------------------------------
+Thu Feb  5 14:13:42 UTC 2015 - jw@owncloud.com
+
+- help with https://github.com/owncloud/client/issues/1605
+
+-------------------------------------------------------------------
+Thu Jan  8 14:04:19 UTC 2015 - jw@owncloud.com
+
+- Provides: qtkeychain
+  For Fedora 20. Avoids an error when installing onwcloud-client:
+  'Package qtkeychain is obsoleted by libqtkeychain0, but obsoleting package does not provide for requirements'
+
+-------------------------------------------------------------------
+Tue Sep  2 13:41:11 UTC 2014 - danimo@owncloud.com
+
+- Detect GNOME keychain daemons presence using official API
+- Fix kdewallet integration
+- Don't request a new kwallet if there already is one
+
+-------------------------------------------------------------------
+Mon Aug 18 13:30:26 UTC 2014 - jw@owncloud.com
+
+- fixed copyright in specfile
+
+-------------------------------------------------------------------
+Wed Jul 16 09:43:46 UTC 2014 - jw@owncloud.com
+
+- Rename libqtkeychain-dev to qtkeychain-dev
+- Adapted debian.rules to match the new name.
+
+-------------------------------------------------------------------
+Fri Mar 14 22:40:22 UTC 2014 - danimo@owncloud.com
+
+- Bump to 0.3
+
+-------------------------------------------------------------------
+Thu Mar  6 12:19:30 UTC 2014 - freitag@owncloud.com
+
+- Obsolete also the upstream devel package. 
+
+-------------------------------------------------------------------
+Thu Mar  6 12:10:32 UTC 2014 - freitag@owncloud.com
+
+- Obsolete the upstream qtkeychain package on Fedora. 
+
+-------------------------------------------------------------------
+Thu Feb 20 14:28:09 UTC 2014 - freitag@owncloud.com
+
+- Added keyring.diff file. 
+
+-------------------------------------------------------------------
+Thu Feb 20 14:07:49 UTC 2014 - freitag@owncloud.com
+
+- Added a patch to detect GNOME keyring on older distros. 
+
+-------------------------------------------------------------------
+Tue Jan 28 14:41:44 UTC 2014 - freitag@owncloud.com
+
+- Fixed diff.  
+
+-------------------------------------------------------------------
+Tue Jan 28 13:45:30 UTC 2014 - freitag@owncloud.com
+
+  * date release 20140128:
+    - delete job fixes
+    - romanian translation
+    - qt5 fixes
+    - error reporting fixes
+    and other fixes.
+
+-------------------------------------------------------------------
+Mon Sep  2 11:40:46 UTC 2013 - freitag@owncloud.com
+
+- Add patches to the debian build through series file. 
+
+-------------------------------------------------------------------
+Mon Sep  2 10:25:11 UTC 2013 - freitag@owncloud.com
+
+- Add patch to fix 
+  https://github.com/frankosterfeld/qtkeychain/issues/9 
+  until it's applied upstream.
+
+-------------------------------------------------------------------
+Mon Aug  5 12:20:55 UTC 2013 - freitag@owncloud.com
+
+- Added new tarball. 
+
+-------------------------------------------------------------------
+Mon Aug  5 12:19:07 UTC 2013 - freitag@owncloud.com
+
+- removed unused patch. 
+
+-------------------------------------------------------------------
+Mon Aug  5 12:16:32 UTC 2013 - freitag@owncloud.com
+
+- Updated to a more recent version of qtkeychain with gnomekeyring
+  fixes included. 
+
+-------------------------------------------------------------------
+Thu Apr 11 07:32:16 UTC 2013 - freitag@owncloud.com
+
+- Added patch to build with cmake 2.6 on CentOS and RHEL. 
+
+-------------------------------------------------------------------
+Fri Jan 18 12:21:46 UTC 2013 - freitag@owncloud.com
+
+- Fixed dependency from dev package to main for deb builds. 
+
+-------------------------------------------------------------------
+Thu Jan 17 12:56:43 UTC 2013 - freitag@owncloud.com
+
+- Fedora build fixed by removing build dep on kde4-filesystem. 
+
+-------------------------------------------------------------------
+Thu Jan 17 12:51:48 UTC 2013 - freitag@owncloud.com
+
+- Update to first official version 0.1 
+
+-------------------------------------------------------------------
+Thu Dec 13 11:24:56 UTC 2012 - dev@dominik-schmidt.de
+
+- clean up spec file 
+
+-------------------------------------------------------------------
+Sat Dec  8 20:17:44 UTC 2012 - freitag@owncloud.com
+
+- First initial package for linux. 
+

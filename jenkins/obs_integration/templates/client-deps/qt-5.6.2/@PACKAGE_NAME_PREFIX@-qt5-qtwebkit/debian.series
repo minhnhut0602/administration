@@ -1,0 +1,2 @@
+qtwebkit-opensource-src-5.2.0-save_memory.patch -p1
+qtwebkit-opensource-src-5.0.1-debuginfo.patch -p1

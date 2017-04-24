@@ -1,0 +1,6 @@
+@OC_QT_ROOT@/share/qt5/doc/qdoc/
+@OC_QT_ROOT@/share/qt5/doc/qtassistant/
+@OC_QT_ROOT@/share/qt5/doc/qtdesigner/
+@OC_QT_ROOT@/share/qt5/doc/qthelp/
+@OC_QT_ROOT@/share/qt5/doc/qtlinguist/
+@OC_QT_ROOT@/share/qt5/doc/qtuitools/

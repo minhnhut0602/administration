@@ -1,2 +1,2 @@
-${_oc_prefix}/lib/*/qt5/plugins/bearer/libqconnmanbearer.so
-${_oc_prefix}/lib/*/qt5/plugins/bearer/libqnmbearer.so
+@OC_QT_ROOT@/lib/*/qt5/plugins/bearer/libqconnmanbearer.so
+@OC_QT_ROOT@/lib/*/qt5/plugins/bearer/libqnmbearer.so

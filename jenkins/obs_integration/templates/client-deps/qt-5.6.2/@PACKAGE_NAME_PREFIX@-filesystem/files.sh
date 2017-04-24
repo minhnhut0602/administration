@@ -13,7 +13,7 @@ dirparts () {
 fileslist=files.list
 :> $fileslist
 
-dirparts '%dir ' /opt/ownCloud/qt-5.6.2/fancy > $fileslist
+dirparts '%dir ' @OC_QT_ROOT@/fancy > $fileslist
 dirparts '%dir ' /usr/share/inkscape >> $fileslist
 
 cat $fileslist

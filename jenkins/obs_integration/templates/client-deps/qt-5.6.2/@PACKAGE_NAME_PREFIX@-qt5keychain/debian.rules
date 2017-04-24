@@ -1,0 +1,59 @@
+#!/usr/bin/make -f 
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+export LINTIAN_OPTS := --tags debian-changelog-line-too-long
+export DEBUILD_LINTIAN_OPTS := --tags debian-changelog-line-too-long
+export PATH := @OC_QT_ROOT@/lib/$(DEB_HOST_MULTIARCH)/qt5/bin:$(PATH)
+export LD_LIBRARY_PATH := @OC_QT_ROOT@/lib/$(DEB_HOST_MULTIARCH):$(LD_LIBRARY_PATH)
+
+# Prefixed packages. All the meta files need to be renamed accordingly. 
+# CAUTION: Keep in sync with the Binary: list in the *.dsc.in file.
+pkgs_oc_pkg_prefix = libqt5keychain1 qt5keychain-dev
+lintian_overrides = dir-or-file-in-opt package-name-doesnt-match-sonames debian-changelog-line-too-long syntax-error-in-debian-changelog latest-debian-changelog-entry-without-new-version no-copyright-file debian-revision-should-not-be-zero no-debian-copyright
+
+%:
+	dh $@ --buildsystem=cmake
+
+override_dh_auto_configure:
+# 	dh_auto_configure -- -DCMAKE_SKIP_RPATH=YES -DCMAKE_BUILD_TYPE=RelWithDebInfo
+	dh_auto_configure -- -DCMAKE_INSTALL_PREFIX=@OC_QT_ROOT@ -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_SKIP_RPATH=YES -DCMAKE_BUILD_TYPE=RelWithDebInfo
+
+override_dh_lintian:
+	# debian.source.lintian-overrides does not work at all.
+	echo 'DEBUILD_LINTIAN_OPTS="-i -I --tags debian-changelog-line-too-long --show-overrides"' > /home/abuild/.devscripts
+	# mkdir -p /home/abuild/.config/dpkg
+	# echo 'show-overrides = yes' > /home/abuild/.lintianrc
+	# echo 'verbose = yes' >> /home/abuild/.lintianrc
+	dh_lintian
+
+override_dh_auto_install:
+
+	echo "@OC_QT_ROOT@/include/qt5keychain/*" > debian/qt5keychain-dev.install
+	echo "@OC_QT_ROOT@/lib/*/libqt5keychain.so.*" >> debian/libqt5keychain1.install
+	echo "@OC_QT_ROOT@/lib/*/cmake/Qt5Keychain" >> debian/qt5keychain-dev.install
+	echo "@OC_QT_ROOT@/lib/*/libqt5keychain.so" >> debian/qt5keychain-dev.install
+	
+	set -x; cat debian/qt5keychain-dev.install
+	set -x; cat debian/libqt5keychain1.install
+
+	touch debian/lintian-overrides
+	for pkg in $(pkgs_oc_pkg_prefix); do \
+		( cd debian; for f in $$pkg.*; do test -f $$f && cp $$f @PACKAGE_NAME_PREFIX@-$$f ; done ); \
+		for tag in $(lintian_overrides); do \
+		  echo "@PACKAGE_NAME_PREFIX@-$$pkg: $$tag" >>  debian/lintian-overrides; \
+		  echo "@PACKAGE_NAME_PREFIX@-$$pkg: $$tag" >>  debian/@PACKAGE_NAME_PREFIX@-$$pkg.lintian-overrides; \
+		done; \
+	done
+	cat debian/lintian-overrides
+	ls -la debian/
+	
+# 	dh_install --list-missing
+	dh_auto_install
+
+override_dh_shlibdeps:
+	dh_shlibdeps -O--parallel -l"@OC_QT_ROOT@/lib/$(DEB_HOST_MULTIARCH)"
+
+override_dh_strip:
+	dh_strip --dbg-package=@PACKAGE_NAME_PREFIX@-qt5keychain-dbg

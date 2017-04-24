@@ -1,0 +1,82 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+export CFLAGS := $(shell dpkg-buildflags --get CFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
+export CXXFLAGS := $(shell dpkg-buildflags --get CXXFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
+export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
+export QT_SELECT := qt5
+export PATH := @OC_QT_ROOT@/bin:@OC_QT_ROOT@/lib/$(DEB_HOST_MULTIARCH)/qt5/bin:$(PATH)
+export LD_LIBRARY_PATH := @OC_QT_ROOT@/lib/$(DEB_HOST_MULTIARCH):$(LD_LIBRARY_PATH)
+
+# Prefixed packages. All the meta files need to be renamed accordingly. 
+# CAUTION: Keep in sync with the Binary: list in the *.dsc.in file.
+pkgs_oc_pkg_prefix = libqt5clucene5 libqt5designer5 libqt5designercomponents5 libqt5help5 qdbus-qt5 qttools5-dev-tools qttools5-dev qttools5-doc-html qttools5-doc qttools5-examples qttools5-private-dev
+lintian_overrides = dir-or-file-in-opt package-name-doesnt-match-sonames debian-changelog-line-too-long
+#license-problem-non-free-RFC privacy-breach-facebook privacy-breach-google-adsense privacy-breach-logo
+
+%:
+	dh $@ --with pkgkde_symbolshelper --parallel
+
+# We override qmake until https://bugreports.qt-project.org/browse/QTBUG-30735
+# gets solved (FTBFS with -nocache).
+override_dh_auto_configure:
+	qmake
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -fv .qmake.cache
+
+override_dh_auto_build-indep:
+	cd src; qmake
+	dh_auto_build -- -Csrc sub-qdoc
+	cd src/assistant; qmake
+	dh_auto_build -- -Csrc/assistant sub-qhelpgenerator
+	cd src/qdoc; qmake
+	cd src/assistant/help; qmake
+	# dh_auto_build -- docs
+	sleep 100
+
+override_dh_auto_install-arch:
+	dh_auto_install
+	
+	# Remove libtool-like files
+	rm -f debian/tmp/@OC_QT_ROOT@/lib/$(DEB_HOST_MULTIARCH)/*.la
+
+	# Remove CMake files for plugins.
+	rm -fv debian/tmp/@OC_QT_ROOT@/lib/$(DEB_HOST_MULTIARCH)/cmake/Qt5Designer/*Plugin.cmake
+
+override_dh_auto_install-indep:
+	dh_auto_build -- INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs
+
+override_dh_install:
+	touch debian/lintian-overrides
+	ls -la debian/lintian-overrides
+	find debian/
+	for pkg in $(pkgs_oc_pkg_prefix); do \
+		( cd debian; for f in $$pkg.*; do test -f $$f && cp $$f @PACKAGE_NAME_PREFIX@-$$f ; done ); \
+		for tag in $(lintian_overrides); do \
+		  echo "@PACKAGE_NAME_PREFIX@-$$pkg: $$tag" >>  debian/lintian-overrides; \
+		  echo "@PACKAGE_NAME_PREFIX@-$$pkg: $$tag" >>  debian/@PACKAGE_NAME_PREFIX@-$$pkg.lintian-overrides; \
+		done; \
+	done
+	pwd
+	ls -la debian/lintian-overrides
+	cat debian/lintian-overrides
+	ls -lah debian
+
+	# Call dh_install normally. It will process .install, .install.ARCH
+	# and/or .install.OS files.
+	dh_install --list-missing
+
+override_dh_strip:
+	dh_strip -pqttools5-examples --dbg-package=@PACKAGE_NAME_PREFIX@-qttools5-examples-dbg
+	dh_strip --remaining-packages --dbg-package=@PACKAGE_NAME_PREFIX@-qttools5-dbg
+
+override_dh_auto_test-indep:
+
+override_dh_shlibdeps:
+	dh_shlibdeps -O--parallel -l"@OC_QT_ROOT@/lib/$(DEB_HOST_MULTIARCH)"

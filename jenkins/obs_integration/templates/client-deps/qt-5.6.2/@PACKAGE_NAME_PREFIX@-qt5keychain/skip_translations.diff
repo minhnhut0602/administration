@@ -1,0 +1,24 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a8f04a1..ebf9b57 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -29,7 +29,7 @@ if (Qt5Core_FOUND)
+       qt5_add_dbus_interface(${ARGN})
+     endmacro()
+   endif()
+-  find_package(Qt5LinguistTools REQUIRED)
++  # find_package(Qt5LinguistTools REQUIRED)
+   macro(qt_add_translation)
+     qt5_add_translation(${ARGN})
+   endmacro(qt_add_translation)
+@@ -117,8 +117,8 @@ set(qtkeychain_TR_FILES
+ )
+ 
+ file(GLOB qtkeychain_TR_SOURCES *.cpp *.h *.ui)
+-qt_create_translation(qtkeychain_MESSAGES ${qtkeychain_TR_SOURCES} ${qtkeychain_TR_FILES})
+-qt_add_translation(qtkeychain_QM_FILES ${qtkeychain_TR_FILES})
++# qt_create_translation(qtkeychain_MESSAGES ${qtkeychain_TR_SOURCES} ${qtkeychain_TR_FILES})
++# qt_add_translation(qtkeychain_QM_FILES ${qtkeychain_TR_FILES})
+ add_custom_target(messages DEPENDS ${qtkeychain_MESSAGES})
+ add_custom_target(translations DEPENDS ${qtkeychain_QM_FILES})
+ 

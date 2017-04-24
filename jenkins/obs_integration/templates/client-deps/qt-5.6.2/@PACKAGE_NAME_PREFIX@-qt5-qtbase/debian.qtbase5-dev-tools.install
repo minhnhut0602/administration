@@ -1,8 +1,8 @@
-${_oc_prefix}/lib/*/qt5/bin/fixqt4headers.pl
-${_oc_prefix}/lib/*/qt5/bin/moc
-${_oc_prefix}/lib/*/qt5/bin/qdbuscpp2xml
-${_oc_prefix}/lib/*/qt5/bin/qdbusxml2cpp
-${_oc_prefix}/lib/*/qt5/bin/qlalr
-${_oc_prefix}/lib/*/qt5/bin/rcc
-${_oc_prefix}/lib/*/qt5/bin/syncqt.pl
-${_oc_prefix}/lib/*/qt5/bin/uic
+@OC_QT_ROOT@/lib/*/qt5/bin/fixqt4headers.pl
+@OC_QT_ROOT@/lib/*/qt5/bin/moc
+@OC_QT_ROOT@/lib/*/qt5/bin/qdbuscpp2xml
+@OC_QT_ROOT@/lib/*/qt5/bin/qdbusxml2cpp
+@OC_QT_ROOT@/lib/*/qt5/bin/qlalr
+@OC_QT_ROOT@/lib/*/qt5/bin/rcc
+@OC_QT_ROOT@/lib/*/qt5/bin/syncqt.pl
+@OC_QT_ROOT@/lib/*/qt5/bin/uic

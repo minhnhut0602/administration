@@ -1,0 +1,10 @@
+# The examples need the images.
+@PACKAGE_NAME_PREFIX@-qttools5-examples: image-file-in-usr-lib usr/lib/*/qt5/examples/assistant/remotecontrol/enter.png
+@PACKAGE_NAME_PREFIX@-qttools5-examples: image-file-in-usr-lib usr/lib/*/qt5/examples/assistant/simpletextviewer/documentation/images/browse.png
+@PACKAGE_NAME_PREFIX@-qttools5-examples: image-file-in-usr-lib usr/lib/*/qt5/examples/assistant/simpletextviewer/documentation/images/fadedfilemenu.png
+@PACKAGE_NAME_PREFIX@-qttools5-examples: image-file-in-usr-lib usr/lib/*/qt5/examples/assistant/simpletextviewer/documentation/images/filedialog.png
+@PACKAGE_NAME_PREFIX@-qttools5-examples: image-file-in-usr-lib usr/lib/*/qt5/examples/assistant/simpletextviewer/documentation/images/handbook.png
+@PACKAGE_NAME_PREFIX@-qttools5-examples: image-file-in-usr-lib usr/lib/*/qt5/examples/assistant/simpletextviewer/documentation/images/icon.png
+@PACKAGE_NAME_PREFIX@-qttools5-examples: image-file-in-usr-lib usr/lib/*/qt5/examples/assistant/simpletextviewer/documentation/images/mainwindow.png
+@PACKAGE_NAME_PREFIX@-qttools5-examples: image-file-in-usr-lib usr/lib/*/qt5/examples/assistant/simpletextviewer/documentation/images/open.png
+@PACKAGE_NAME_PREFIX@-qttools5-examples: image-file-in-usr-lib usr/lib/*/qt5/examples/assistant/simpletextviewer/documentation/images/wildcard.png

@@ -1,1 +1,1 @@
-${_oc_prefix}/lib/*/qt5/plugins/sqldrivers/libqsqlpsql.so
+@OC_QT_ROOT@/lib/*/qt5/plugins/sqldrivers/libqsqlpsql.so

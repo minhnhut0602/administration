@@ -1,0 +1,4 @@
+@OC_QT_ROOT@/lib/*/libQt5WebKitWidgets.so.*
+@OC_QT_ROOT@/lib/*/libQt5WebKit.so.*
+@OC_QT_ROOT@/lib/*/qt5/libexec/QtWebPluginProcess
+@OC_QT_ROOT@/lib/*/qt5/libexec/QtWebProcess

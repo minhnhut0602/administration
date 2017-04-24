@@ -1,0 +1,77 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+export CFLAGS := $(shell dpkg-buildflags --get CFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
+export CXXFLAGS := $(shell dpkg-buildflags --get CXXFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
+export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
+export QT_SELECT := qt5
+export PATH := @OC_QT_ROOT@/lib/$(DEB_HOST_MULTIARCH)/qt5/bin:$(PATH)
+export LD_LIBRARY_PATH := @OC_QT_ROOT@/lib/$(DEB_HOST_MULTIARCH):$(LD_LIBRARY_PATH)
+
+# Prefixed packages. All the meta files need to be renamed accordingly. 
+# CAUTION: Keep in sync with the Binary: list in the *.dsc.in file.
+pkgs_oc_pkg_prefix = libqt5webkit5 libqt5webkit5-dev
+lintian_overrides = dir-or-file-in-opt package-name-doesnt-match-sonames debian-changelog-line-too-long syntax-error-in-debian-changelog latest-debian-changelog-entry-without-new-version debian-revision-should-not-be-zero no-debian-copyright license-problem-json-evil source-is-missing shlib-with-non-pic-code
+#license-problem-non-free-RFC privacy-breach-facebook privacy-breach-google-adsense privacy-breach-logo
+
+
+# Filter -g from environment on troublesome arches. Replace it with -gstabs
+# See also: stabs_format_debug_info.diff
+DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+ifneq (,$(filter $(DEB_HOST_ARCH),s390 s390x armel armhf mips mipsel))
+    export DEB_CFLAGS_MAINT_STRIP := -g
+    export DEB_CFLAGS_MAINT_APPEND := -gstabs
+    export DEB_CXXFLAGS_MAINT_STRIP := -g
+    export DEB_CXXFLAGS_MAINT_APPEND := -gstabs
+endif
+ifneq (,$(filter $(DEB_HOST_ARCH),alpha))
+    export DEB_LDFLAGS_MAINT_APPEND := -Wl,--no-relax
+endif
+
+%:
+	dh $@ --parallel --list-missing --dbg-package=@PACKAGE_NAME_PREFIX@-libqt5webkit5-dbg --with pkgkde_symbolshelper
+
+override_dh_auto_configure:
+	qmake
+
+override_dh_auto_install:
+	make install INSTALL_ROOT=$(CURDIR)/debian/tmp
+	
+	# Remove rpath from the offending binaries
+	chrpath -d $(CURDIR)/debian/tmp/@OC_QT_ROOT@/lib/*/qt5/libexec/QtWebProcess
+	chrpath -d $(CURDIR)/debian/tmp/@OC_QT_ROOT@/lib/*/qt5/libexec/QtWebPluginProcess
+	# E: oc-libqt5webkit5: binary-or-shlib-defines-rpath 
+	# opt/ownCloud/Qt-5.6.2/lib/x86_64-linux-gnu/qt5/libexec/QtWebProcess 
+	# opt/ownCloud/Qt-5.6.2/lib/x86_64-linux-gnu/qt5/libexec/QtWebPluginProcess /usr/src/packages/BUILD/lib
+	# 
+	# The above chrpath -d is ineffective for Debian_7.0 and 8.0
+	find . -name 'QtWeb*Process' | xargs -n1 chrpath -d
+	
+	# Remove la files (http://wiki.debian.org/ReleaseGoals/LAFileRemoval)
+	rm -f debian/tmp/@OC_QT_ROOT@/lib/*/*.la
+	
+	# Fix wrong path in pkgconfig files
+	find $(CURDIR)/debian/tmp/@OC_QT_ROOT@/lib/*/pkgconfig -type f -name '*.pc' \
+	-exec sed -i -e 's/$(DEB_HOST_MULTIARCH)\/$(DEB_HOST_MULTIARCH)/$(DEB_HOST_MULTIARCH)/g' {} \;
+
+	touch debian/lintian-overrides
+	for pkg in $(pkgs_oc_pkg_prefix); do \
+		( cd debian; for f in $$pkg.*; do test -f $$f && cp $$f @PACKAGE_NAME_PREFIX@-$$f ; done ); \
+		for tag in $(lintian_overrides); do \
+		  echo "@PACKAGE_NAME_PREFIX@-$$pkg: $$tag" >>  debian/lintian-overrides; \
+		  echo "@PACKAGE_NAME_PREFIX@-$$pkg: $$tag" >>  debian/@PACKAGE_NAME_PREFIX@-$$pkg.lintian-overrides; \
+		done; \
+	done
+	cat debian/lintian-overrides
+	ls -la debian/
+	
+	dh_auto_install
+	find . -name 'QtWeb*Process' | xargs -n1 chrpath -d
+
+override_dh_builddeb:
+	dh_builddeb -- -Zxz
+
+override_dh_shlibdeps:
+	dh_shlibdeps -O--parallel -l"@OC_QT_ROOT@/lib/$(DEB_HOST_MULTIARCH)"

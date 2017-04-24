@@ -1,0 +1,9 @@
+@OC_QT_ROOT@/lib/*/qt5/examples/assistant/
+@OC_QT_ROOT@/lib/*/qt5/examples/designer/
+@OC_QT_ROOT@/lib/*/qt5/examples/help/
+@OC_QT_ROOT@/lib/*/qt5/examples/linguist/
+@OC_QT_ROOT@/lib/*/qt5/examples/uitools/
+@OC_QT_ROOT@/lib/*/qt5/plugins/designer/libcontainerextension.so
+@OC_QT_ROOT@/lib/*/qt5/plugins/designer/libcustomwidgetplugin.so
+@OC_QT_ROOT@/lib/*/qt5/plugins/designer/libtaskmenuextension.so
+@OC_QT_ROOT@/lib/*/qt5/plugins/designer/libworldtimeclockplugin.so

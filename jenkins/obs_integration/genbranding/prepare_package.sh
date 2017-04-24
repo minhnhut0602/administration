@@ -9,6 +9,9 @@
 #  - remove excessive files from $destdir/*
 #  - only templatize mime-types text/*
 #
+
+shopt -s nullglob
+
 themedclienttar=$1
 templatedir=$1
 destdir=$2
@@ -71,4 +74,18 @@ for tmplpkg in $templatedir/*; do
 		esac
 	done
 	cp $(dirname $templvars_file)/$TARNAME $destdir/$pkg/
+
+	for downloadfile in $destdir/$pkg/*.sourceTarball; do
+        file=$(basename ${downloadfile} .sourceTarball)
+
+        if [ "x" != "x${LOCAL_OC_TARBALL_MIRROR}" ]; then
+            if [ ! -f "${LOCAL_OC_TARBALL_MIRROR}/${file}" ]; then
+                echo "wget .../${file} to ${LOCAL_OC_TARBALL_MIRROR}"
+            fi
+
+            cp "${LOCAL_OC_TARBALL_MIRROR}/${file}" "$destdir/$pkg/"
+        else
+            echo wget .../${file} -c "$destdir/$pkg/"
+        fi
+	done
 done

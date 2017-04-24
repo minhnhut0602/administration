@@ -1,0 +1,29 @@
+Source: @PACKAGE_NAME_PREFIX@-qt5keychain
+Section: libs
+Priority: optional
+Maintainer: Thomas Müller <thomas.mueller@tmit.eu>
+Build-Depends: debhelper (>= 4.2.21), cmake, @PACKAGE_NAME_PREFIX@-qtbase5-dev, @PACKAGE_NAME_PREFIX@-qttools5-dev, @PACKAGE_NAME_PREFIX@-qttools5-dev-tools, lintian-obs-permissive
+Standards-Version: 3.9.8
+
+Package: @PACKAGE_NAME_PREFIX@-libqt5keychain1
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Cross platform password store library
+ use qtkeychain to store passwords easy and secure on Linux, Windows and Mac.
+
+Package: @PACKAGE_NAME_PREFIX@-qt5keychain-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends:
+    @PACKAGE_NAME_PREFIX@-libqt5keychain1 (= ${binary:Version}),
+    ${misc:Depends}
+Description: debugging symbols for @PACKAGE_NAME_PREFIX@-qt5keychain
+ This package contains the debugging symbols for @PACKAGE_NAME_PREFIX@-qt5keychain.
+ 
+Package: @PACKAGE_NAME_PREFIX@-qt5keychain-dev
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, @PACKAGE_NAME_PREFIX@-libqt5keychain1
+Description: Cross platform password store library (development files)
+ use qtkeychain to store passwords easy and secure on Linux, Windows and Mac.
+ This is the development package.

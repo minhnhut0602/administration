@@ -1,4 +1,4 @@
-${_oc_prefix}/lib/*/libQt5EglDeviceIntegration.so.*
-${_oc_prefix}/lib/*/qt5/plugins/egldeviceintegrations/*
-${_oc_prefix}/lib/*/qt5/plugins/platforms/libqeglfs.so
-${_oc_prefix}/lib/*/qt5/plugins/platforms/libqminimalegl.so
+@OC_QT_ROOT@/lib/*/libQt5EglDeviceIntegration.so.*
+@OC_QT_ROOT@/lib/*/qt5/plugins/egldeviceintegrations/*
+@OC_QT_ROOT@/lib/*/qt5/plugins/platforms/libqeglfs.so
+@OC_QT_ROOT@/lib/*/qt5/plugins/platforms/libqminimalegl.so
