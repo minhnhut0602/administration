@@ -1,3 +1,6 @@
+#
+# obsoleted by setup_client_obs.sh
+
 themetar=testpilotcloud.tar.xz
 # themetar=jwfablabnbg.tar.xz
 # themetar=ownCloud.tar.xz

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # refactored from genbranding.pl
 # (c) 2017 jw@owncloud.com
@@ -9,6 +9,7 @@
 #  - remove excessive files from $destdir/*
 #  - only templatize mime-types text/*
 #
+# Caution: MUST be run with bash.
 
 shopt -s nullglob
 
