@@ -1,2 +1,2 @@
-qt5-qtwebkit source: license-problem-json-evil
-qt5-qtwebkit source: source-is-missing
+@PACKAGE_NAME_PREFIX@-qt5-qtwebkit source: license-problem-json-evil
+@PACKAGE_NAME_PREFIX@-qt5-qtwebkit source: source-is-missing

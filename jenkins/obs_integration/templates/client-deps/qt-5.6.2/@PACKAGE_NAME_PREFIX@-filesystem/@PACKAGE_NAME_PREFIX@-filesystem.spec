@@ -52,10 +52,7 @@ dirparts () {
 	done | tac
 }
 
-# This can't be here, it must go to the client packages!
-# dirparts >  files.list '%dir ' @CLIENT_ROOT@
 dirparts >> files.list '%dir ' %{_oc_prefix}
-
 
 %files -f files.list
 %defattr(-,root,root,-)

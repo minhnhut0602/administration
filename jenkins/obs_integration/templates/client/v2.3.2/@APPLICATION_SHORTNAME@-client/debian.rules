@@ -10,8 +10,8 @@
 export DH_VERBOSE=1
 
 export QT_SELECT := qt5
-export PATH := @PACKAGE_ROOT@/lib/$(DEB_HOST_MULTIARCH)/qt5/bin:$(PATH)
-export LD_LIBRARY_PATH := @PACKAGE_ROOT@/lib/$(DEB_HOST_MULTIARCH):$(LD_LIBRARY_PATH)
+export PATH := @OC_QT_ROOT@/lib/$(DEB_HOST_MULTIARCH)/qt5/bin:$(PATH)
+export LD_LIBRARY_PATH := @OC_QT_ROOT@/lib/$(DEB_HOST_MULTIARCH):$(LD_LIBRARY_PATH)
 
 export DROOT=$(CURDIR)/debian/@APPLICATION_SHORTNAME@-client
 export SRCDIR=/usr/src/packages/SOURCES
@@ -35,15 +35,15 @@ override_dh_auto_configure:
 	if [ -n "@PRERELEASE@" -a "@PRERELEASE@" != "%nil" ]; then \
 	  git_defs=('-DMIRALL_VERSION_SUFFIX=@PRERELEASE@' '-DMIRALL_VERSION_BUILD=@BUILD_NUMBER@'); \
 	fi; \
-	echo "include_directories(@PACKAGE_ROOT@/include/$(DEB_HOST_MULTIARCH))" >> src/libsync/CMakeLists.txt
-	echo "include_directories(@PACKAGE_ROOT@/include/$(DEB_HOST_MULTIARCH)/qt5)" >> src/libsync/CMakeLists.txt
-	echo "include_directories(@PACKAGE_ROOT@/include/$(DEB_HOST_MULTIARCH)/qt5/QtCore)" >> src/libsync/CMakeLists.txt
+	echo "include_directories(@OC_QT_ROOT@/include/$(DEB_HOST_MULTIARCH))" >> src/libsync/CMakeLists.txt
+	echo "include_directories(@OC_QT_ROOT@/include/$(DEB_HOST_MULTIARCH)/qt5)" >> src/libsync/CMakeLists.txt
+	echo "include_directories(@OC_QT_ROOT@/include/$(DEB_HOST_MULTIARCH)/qt5/QtCore)" >> src/libsync/CMakeLists.txt
 	cat src/libsync/CMakeLists.txt
 
 	dh_auto_configure -- \
 		"$${git_defs[@]}" \
-		-DQT_QMAKE_EXECUTABLE=@PACKAGE_ROOT@/bin/qmake \
-		-DCMAKE_INSTALL_PREFIX=@PACKAGE_ROOT@ \
+		-DQT_QMAKE_EXECUTABLE=@OC_QT_ROOT@/bin/qmake \
+		-DCMAKE_INSTALL_PREFIX=@CLIENT_ROOT@ \
 		-DCMAKE_INSTALL_DOCDIR=/usr/share/doc \
 		-DCMAKE_INSTALL_DATAROOTDIR:PATH=/usr/share \
 		-DDATA_INSTALL_DIR:PATH=/usr/share \
@@ -52,7 +52,7 @@ override_dh_auto_configure:
 		-DCMAKE_SKIP_RPATH=FALSE \
 		-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=TRUE \
 		-DOEM_THEME_DIR=$(CURDIR)/@THEME@/@OEM_SUB_DIR@ \
-		-DCMAKE_FIND_ROOT_PATH=@PACKAGE_ROOT@ \
+		-DCMAKE_FIND_ROOT_PATH=@OC_QT_ROOT@ \
 		-DBUILD_SHELL_INTEGRATION=OFF
 
 override_dh_auto_install:

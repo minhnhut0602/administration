@@ -702,7 +702,7 @@ Qt 5 PlatformHeaders.
 Summary:        Qt5 base examples
 Group:          Development/Libraries/X11
 %if ! 0%{?centos_version} && ! 0%{?rhel_version}
-Recommends:     libqt5-qtbase-devel
+Recommends:     @PACKAGE_NAME_PREFIX@-qt5-qtbase-devel
 %endif
 
 %description examples

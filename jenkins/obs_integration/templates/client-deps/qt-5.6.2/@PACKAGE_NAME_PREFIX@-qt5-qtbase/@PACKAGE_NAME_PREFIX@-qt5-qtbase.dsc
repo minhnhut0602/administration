@@ -1,5 +1,5 @@
 Format: 1.0
-Source: qt5-qtbase
+Source: @PACKAGE_NAME_PREFIX@-qt5-qtbase
 # CAUTION: Keep the list below in sync with the pkgs_oc_prefix list in debian.rules.in
 Binary: @PACKAGE_NAME_PREFIX@-libqt5core5a,
 	@PACKAGE_NAME_PREFIX@-libqt5gui5,

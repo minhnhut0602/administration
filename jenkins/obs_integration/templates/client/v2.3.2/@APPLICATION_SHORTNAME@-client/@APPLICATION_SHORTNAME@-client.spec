@@ -250,8 +250,8 @@ echo have_doc       0%{?have_doc}
 source /opt/rh/devtoolset-4/enable
 %endif
 
-export LD_LIBRARY_PATH=@PACKAGE_ROOT@/%{_lib}
-export PATH=@PACKAGE_ROOT@/bin:$PATH
+export LD_LIBRARY_PATH=@OC_QT_ROOT@/%{_lib}
+export PATH=@OC_QT_ROOT@/bin:$PATH
 
 env
 
@@ -259,7 +259,7 @@ mkdir build
 pushd build
 # http://www.cmake.org/Wiki/CMake_RPATH_handling#Default_RPATH_settings
 cmake .. -DWITH_DOC=TRUE \
-  -DCMAKE_FIND_ROOT_PATH="@PACKAGE_ROOT@" \
+  -DCMAKE_FIND_ROOT_PATH="@OC_QT_ROOT@" \
 %if "%{prerelease}" != ""
   -DMIRALL_VERSION_SUFFIX="%{prerelease}" \
   -DMIRALL_VERSION_BUILD="@BUILD_NUMBER@" \
@@ -269,7 +269,7 @@ cmake .. -DWITH_DOC=TRUE \
   -DCMAKE_CXX_FLAGS:STRING="%{optflags}" \
   -DCMAKE_SKIP_RPATH=OFF \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-  -DCMAKE_INSTALL_PREFIX=@PACKAGE_ROOT@ \
+  -DCMAKE_INSTALL_PREFIX=@CLIENT_ROOT@ \
   -DCMAKE_INSTALL_DATAROOTDIR:PATH=%{_datadir} \
   -DDATA_INSTALL_DIR:PATH=%{_datadir} \
   -DCMAKE_INSTALL_DOCDIR:PATH=%{_docdir} \
@@ -280,8 +280,8 @@ cmake .. -DWITH_DOC=TRUE \
 %if ! %{is_owncloud_client}
   -DOEM_THEME_DIR=$PWD/../@THEME@/@OEM_SUB_DIR@ \
 %endif
-  -DQTKEYCHAIN_INCLUDE_DIR=@PACKAGE_ROOT@/include/qt5keychain \
-  -DQTKEYCHAIN_LIBRARY=@PACKAGE_ROOT@/%{_lib}/libqt5keychain.so \
+  -DQTKEYCHAIN_INCLUDE_DIR=@OC_QT_ROOT@/include/qt5keychain \
+  -DQTKEYCHAIN_LIBRARY=@OC_QT_ROOT@/%{_lib}/libqt5keychain.so \
   -DGIT_SHA1="HACK FIXME" \
   -DBUILD_SHELL_INTEGRATION=OFF \
   -DPACKAGE="%{name}" \
@@ -339,8 +339,8 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man1/*.1
 # test -f %{extdir}/ownCloud.pyo && mv %{extdir}/ownCloud.pyo %{extdir}/owncloud.pyo || true
 # test -f %{extdir}/ownCloud.pyc && mv %{extdir}/ownCloud.pyc %{extdir}/owncloud.pyc || true
 
-install -d ${RPM_BUILD_ROOT}@PACKAGE_ROOT@/bin
-# mv ${RPM_BUILD_ROOT}/%{_bindir}/@APPLICATION_EXECUTABLE@* ${RPM_BUILD_ROOT}/@PACKAGE_ROOT@/bin/
+install -d ${RPM_BUILD_ROOT}@OC_QT_ROOT@/bin
+# mv ${RPM_BUILD_ROOT}/%{_bindir}/@APPLICATION_EXECUTABLE@* ${RPM_BUILD_ROOT}/@OC_QT_ROOT@/bin/
 
 install -d ${RPM_BUILD_ROOT}%{_bindir}
 install %{SOURCE1} ${RPM_BUILD_ROOT}%{_bindir}/@APPLICATION_EXECUTABLE@
@@ -363,6 +363,18 @@ for desktop_icon_dir in $RPM_BUILD_ROOT/usr/share/icons/hicolor/*/apps; do
   fi
 done
 %endif
+
+# spit out all the subdirs one after another.
+dirparts () {
+	prefix=$1
+	path=$2
+	while [ "$path" != '/' -a "$path" != '.' ]; do
+		echo $prefix$path
+		path=$(dirname $path)
+	done | tac
+}
+
+dirparts >> files.list '%dir ' @CLIENT_ROOT@
 
 %check
 ## use exit 0 instead of exit 1 to turn this into warnings:
@@ -392,7 +404,7 @@ fi
 %post   -n lib@APPLICATION_SHORTNAME@sync0 -p /sbin/ldconfig
 %postun -n lib@APPLICATION_SHORTNAME@sync0 -p /sbin/ldconfig
 
-%files
+%files -f files.list
 %defattr(-,root,root,-)
 %dir %{_docdir}/%{name}
 %doc %{_docdir}/%{name}/README.md
@@ -400,8 +412,8 @@ fi
 
 %{_bindir}/@APPLICATION_EXECUTABLE@
 %{_bindir}/@APPLICATION_EXECUTABLE@cmd
-%{_oc_bindir}/@APPLICATION_EXECUTABLE@
-%{_oc_bindir}/@APPLICATION_EXECUTABLE@cmd
+@CLIENT_ROOT@/bin/@APPLICATION_EXECUTABLE@
+@CLIENT_ROOT@/bin/@APPLICATION_EXECUTABLE@cmd
 
 %{_datadir}/applications/@APPLICATION_EXECUTABLE@.desktop
 %{_datadir}/icons/hicolor
@@ -429,14 +441,14 @@ fi
 
 %files -n lib@APPLICATION_SHORTNAME@sync0
 %defattr(-,root,root,-)
-%{_oc_libdir}/lib@APPLICATION_EXECUTABLE@sync.so.*
-%{_oc_libdir}/@APPLICATION_EXECUTABLE@/libocsync.so.*
-%dir %{_oc_libdir}/@APPLICATION_EXECUTABLE@
+@CLIENT_ROOT@/%{_lib}/lib@APPLICATION_EXECUTABLE@sync.so.*
+@CLIENT_ROOT@/%{_lib}/@APPLICATION_EXECUTABLE@/libocsync.so.*
+%dir @CLIENT_ROOT@/%{_lib}/@APPLICATION_EXECUTABLE@
 
 %files -n lib@APPLICATION_SHORTNAME@sync-devel
 %defattr(-,root,root,-)
-%{_oc_libdir}/lib@APPLICATION_EXECUTABLE@sync.so
-%{_oc_libdir}/@APPLICATION_EXECUTABLE@/libocsync.so
-%{_oc_includedir}/@APPLICATION_EXECUTABLE@sync/
+@CLIENT_ROOT@/%{_lib}/lib@APPLICATION_EXECUTABLE@sync.so
+@CLIENT_ROOT@/%{_lib}/@APPLICATION_EXECUTABLE@/libocsync.so
+@CLIENT_ROOT@/include/@APPLICATION_EXECUTABLE@sync/
 
 %changelog
