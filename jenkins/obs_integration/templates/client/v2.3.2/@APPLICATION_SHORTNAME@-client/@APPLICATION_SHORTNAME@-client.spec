@@ -410,6 +410,10 @@ fi
 %doc %{_docdir}/%{name}/README.md
 %doc %{_docdir}/%{name}/COPYING
 
+%dir @CLIENT_ROOT@/bin
+%dir @CLIENT_ROOT@/include
+%dir @CLIENT_ROOT@/%{_lib}
+
 %{_bindir}/@APPLICATION_EXECUTABLE@
 %{_bindir}/@APPLICATION_EXECUTABLE@cmd
 @CLIENT_ROOT@/bin/@APPLICATION_EXECUTABLE@

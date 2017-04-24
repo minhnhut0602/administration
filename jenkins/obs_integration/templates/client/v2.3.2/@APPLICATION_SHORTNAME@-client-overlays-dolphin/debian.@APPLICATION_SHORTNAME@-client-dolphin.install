@@ -1,0 +1,2 @@
+usr/share/kservices5/@APPLICATION_EXECUTABLE@dolphinactionplugin.desktop
+usr/lib/*/lib@APPLICATION_EXECUTABLE@dolphinpluginhelper.so

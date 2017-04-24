@@ -1,0 +1,32 @@
+Source: @APPLICATION_SHORTNAME@-client-overlays-dolphin
+Section: devel
+Priority: optional
+Maintainer: Jürgen Weigert <jw@owncloud.com>
+Standards-Version: 3.9.6
+Build-Depends: debhelper (>= 9), cmake,
+    extra-cmake-modules,
+    kio-dev,
+    libfam0,
+    qtbase5-dev
+
+Package: @APPLICATION_SHORTNAME@-client-dolphin-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends:
+    @APPLICATION_SHORTNAME@-client-overlays-dolphin (= ${binary:Version}),
+    ${misc:Depends}
+Description: debugging symbols for @APPLICATION_SHORTNAME@-client-overlays-dolphin
+ This package contains the debugging symbols for @APPLICATION_SHORTNAME@-client-overlays-dolphin.
+    
+Package: @APPLICATION_SHORTNAME@-client-dolphin
+Architecture: all
+Section: devel
+Depends: @APPLICATION_SHORTNAME@-client (= ${binary:Version}), @APPLICATION_SHORTNAME@-client-overlays-icons, ${misc:Depends}, python-nautilus, nautilus
+Description: Dolphin plugin for @APPLICATION_SHORTNAME@
+ This package contains a dolphin plugin to display overlay icons.
+ .
+ This helps users to understand the sync state of files in the 
+ synchronized directory.
+
+ 
