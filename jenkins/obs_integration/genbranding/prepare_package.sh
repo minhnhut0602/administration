@@ -76,8 +76,9 @@ for tmplpkg in $templatedir/*; do
 	cp $(dirname $templvars_file)/$TARNAME $destdir/$pkg/
 
 	for downloadfile in $destdir/$pkg/*.sourceTarball; do
-        file=$(basename ${downloadfile} .sourceTarball)
+        rm ${downloadfile}
 
+        file=$(basename ${downloadfile} .sourceTarball)
         if [ "x" != "x${LOCAL_OC_TARBALL_MIRROR}" ]; then
             if [ ! -f "${LOCAL_OC_TARBALL_MIRROR}/${file}" ]; then
                 echo "wget .../${file} to ${LOCAL_OC_TARBALL_MIRROR}"
